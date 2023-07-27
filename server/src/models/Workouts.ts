@@ -6,7 +6,6 @@ interface IWorkout extends Document {
 }
 
 interface IExerciseSet {
-  setNumber: number;
   done: boolean;
   reps: number;
   weight: number;
@@ -14,11 +13,11 @@ interface IExerciseSet {
 
 interface IExercise extends Document {
   name: string;
+  setNumber: number; // how many sets will user do for this exercise
   sets: IExerciseSet[];
 }
 
 const ExerciseSetSchema: Schema<IExerciseSet> = new Schema({
-  setNumber: { type: Number, required: true },
   done: { type: Boolean, required: true, default: false }, // Default value is false, indicating the set is not done initially
   reps: { type: Number, required: true },
   weight: { type: Number, required: false, default: 0 },
@@ -26,6 +25,7 @@ const ExerciseSetSchema: Schema<IExerciseSet> = new Schema({
 
 const ExerciseSchema: Schema<IExercise> = new Schema({
   name: { type: String, required: true },
+  setNumber: { type: Number, required: true }, // how many sets will user do for this exercise
   sets: [ExerciseSetSchema],
 });
 
