@@ -1,4 +1,5 @@
 import mongoose, { Schema, Document, Model } from "mongoose";
+import { IWorkout } from "./Workouts";
 
 interface IUser extends Document {
   username: string;
@@ -10,6 +11,9 @@ interface IUser extends Document {
   goalWeight: number;
   goalCalories: number;
   goalProtein: number;
+  currentCalories: number;
+  currentProtein: number;
+  workouts: IWorkout[];
 }
 
 const UserSchema: Schema<IUser> = new Schema({
@@ -22,6 +26,9 @@ const UserSchema: Schema<IUser> = new Schema({
   goalWeight: { type: Number, required: false },
   goalCalories: { type: Number, required: false },
   goalProtein: { type: Number, required: false },
+  currentCalories: { type: Number, required: false, default: 0 },
+  currentProtein: { type: Number, required: false, default: 0 },
+  workouts: [{ type: Schema.Types.ObjectId, ref: "Workout" }],
 });
 
 export const UserModel: Model<IUser> = mongoose.model<IUser>(

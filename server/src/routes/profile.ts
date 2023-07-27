@@ -34,4 +34,47 @@ router.put("/:userID", verifyToken, async (req: Request, res: Response) => {
   }
 });
 
+// update calories (positive value adds, negative value subtracts)
+router.put(
+  "/calories/:userID",
+  verifyToken,
+  async (req: Request, res: Response) => {
+    let { calories } = req.body;
+
+    calories = parseInt(calories);
+    try {
+      const user = await UserModel.findById(req.params.userID);
+      if (!user) {
+        return res.json({ message: "User does not exist" });
+      }
+      user.currentCalories += calories;
+      await user.save();
+      res.json({ message: "Calories Updated Successfully" });
+    } catch (error) {
+      res.json({ message: error });
+    }
+  }
+);
+
+// update protein (positive value adds, negative value subtracts)
+router.put(
+  "/protein/:userID",
+  verifyToken,
+  async (req: Request, res: Response) => {
+    let { protein } = req.body;
+    protein = parseInt(protein);
+    try {
+      const user = await UserModel.findById(req.params.userID);
+      if (!user) {
+        return res.json({ message: "User does not exist" });
+      }
+      user.currentProtein += protein;
+      await user.save();
+      res.json({ message: "Protein Updated Successfully" });
+    } catch (error) {
+      res.json({ message: error });
+    }
+  }
+);
+
 export { router as profileRouter };

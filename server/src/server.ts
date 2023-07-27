@@ -4,12 +4,13 @@ import mongoose from "mongoose";
 import { authRouter } from "./routes/auth";
 import { profileRouter } from "./routes/profile";
 import dotenv from "dotenv";
+import path from "path";
 
 dotenv.config();
 
 const app: Express = express();
 const port = process.env.PORT || 3001;
-const connection: any = process.env.CONNECT;
+const connection = process.env.CONNECT;
 console.log("Connection String:", connection);
 console.log("Port: ", port);
 
@@ -20,7 +21,7 @@ app.use(cors());
 app.use("/auth", authRouter);
 app.use("/profile", profileRouter);
 
-mongoose.connect(connection);
+mongoose.connect(connection!);
 
 app.listen(port, () => {
   console.log(`[Server]: I am running at https://localhost:${port}`);
