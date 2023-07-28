@@ -1,28 +1,23 @@
+import { Link } from "react-router-dom";
+
 const Navbar = () => {
   return (
     <div className="navbar bg-base-100">
       <div className="flex-1">
-        <a className="btn btn-ghost normal-case text-2xl text-default-500">
+        <Link
+          to="/"
+          className="btn btn-ghost normal-case text-2xl text-default-500"
+        >
           FlexTrack
-        </a>
+        </Link>
       </div>
       <div className="flex-none">
         <ul className="menu menu-horizontal px-1">
           <li>
-            <a>Link</a>
+            <Link to="/about">About</Link>
           </li>
           <li>
-            <details>
-              <summary>Parent</summary>
-              <ul className="p-2 bg-base-100">
-                <li>
-                  <a>Link 1</a>
-                </li>
-                <li>
-                  <a>Link 2</a>
-                </li>
-              </ul>
-            </details>
+            <Link to="/auth">Sign In</Link>
           </li>
         </ul>
       </div>

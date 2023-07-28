@@ -9,7 +9,7 @@ const Home = () => {
           <h1 className="font-bold  mt-0 text-pink-500 lg:text-9xl">Fitness</h1>
           <h1 className="font-bold  mt-5 text-yellow-500">Should Be</h1>
           <h1 className="font-bold mt-5 text-blue-500">Simple</h1>
-          <button className="btn btn-secondary">
+          <button className="btn btn-outline btn-secondary">
             Get Started <BsFillArrowRightCircleFill size={18} />
           </button>
         </div>
