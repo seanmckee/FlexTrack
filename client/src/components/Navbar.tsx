@@ -6,9 +6,12 @@ const Navbar = () => {
       <div className="flex-1">
         <Link
           to="/"
-          className="btn btn-ghost normal-case text-2xl text-default-500"
+          className="btn btn-ghost normal-case text-2xl text-default-500 text-pink-500"
         >
-          FlexTrack
+          <div className="flex underline decoration-blue-500 underline-offset-4">
+            <span>Flex</span>
+            <span className="text-yellow-500">Track</span>
+          </div>
         </Link>
       </div>
       <div className="flex-none">

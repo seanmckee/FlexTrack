@@ -1,11 +1,11 @@
-import lifter from "../assets/lifter.png";
+import lifter from "../../assets/lifter.png";
 import { BsFillArrowRightCircleFill } from "react-icons/bs";
 
 const Home = () => {
   return (
     <div>
       <div className="grid lg:grid-cols-2 bg-base-200 h-screen">
-        <div className="m-auto text-7xl lg:pl-[200px] text-center lg:text-left mt-[150px]">
+        <div className="m-auto text-7xl lg:pl-[200px] text-center lg:text-left mt-[180px]">
           <h1 className="font-bold  mt-0 text-pink-500 lg:text-9xl">Fitness</h1>
           <h1 className="font-bold  mt-5 text-yellow-500">Should Be</h1>
           <h1 className="font-bold mt-5 text-blue-500">Simple</h1>

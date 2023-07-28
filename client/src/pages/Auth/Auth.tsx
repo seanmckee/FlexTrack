@@ -5,7 +5,9 @@ const Auth = () => {
         <div className="hero-content flex-col lg:flex-row-reverse">
           <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
             <div className="card-body p-[60px]">
-              <h1 className="text-center">Sign In</h1>
+              <h1 className="text-center text-2xl font-semibold underline decoration-pink-500">
+                Sign In
+              </h1>
               <div className="form-control">
                 <label className="label">
                   <span className="label-text">Email</span>
