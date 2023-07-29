@@ -5,6 +5,19 @@ import { UserModel } from "../models/Users";
 
 const router = express.Router();
 
+// get profile
+router.get("/:userID", verifyToken, async (req: Request, res: Response) => {
+  try {
+    const response = await UserModel.findById(req.params.userID);
+    if (!response) {
+      res.json({ message: "User does not exist" });
+    }
+    res.json(response);
+  } catch (error) {
+    console.error(error);
+  }
+});
+
 // update profile
 router.put("/:userID", verifyToken, async (req: Request, res: Response) => {
   // takes height in inches

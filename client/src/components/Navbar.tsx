@@ -12,7 +12,7 @@ const Navbar = () => {
     navigate("/");
   };
   return (
-    <div className="navbar bg-base-100 absolute">
+    <div className="navbar bg-base-100 fixed ">
       <div className="flex-1">
         <Link
           to="/"
