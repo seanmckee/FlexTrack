@@ -28,10 +28,7 @@ router.put("/:userID", verifyToken, async (req: Request, res: Response) => {
     if (!user) {
       return res.json({ message: "User does not exist" });
     }
-    // await user.updateOne(
-    //   { _id: req.params.userID },
-    //   { height, weight, age, goalWeight, goalCalories, goalProtein }
-    // );
+
     user.height = height;
     user.weight = weight;
     user.age = age;

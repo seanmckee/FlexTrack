@@ -26,12 +26,12 @@ router.post("/register", async (req: Request, res: Response) => {
     username,
     email,
     password: hashedPassword,
-    height: null,
-    weight: null,
-    age: null,
-    goalWeight: null,
-    goalCalories: null,
-    goalProtein: null,
+    height: 0,
+    weight: 0,
+    age: 0,
+    goalWeight: 0,
+    goalCalories: 0,
+    goalProtein: 0,
   });
   await newUser.save();
   res.json({ message: "User Registered Successfully" });

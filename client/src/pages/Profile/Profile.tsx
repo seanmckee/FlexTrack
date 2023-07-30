@@ -50,6 +50,7 @@ const Profile = () => {
 
   return (
     <div className="pt-[75px] p-5">
+      <h1>View or Edit Information Here</h1>
       <div className="flex">
         <h1 className="text-xl mr-4 mt-2">Username: </h1>
         <input
@@ -67,9 +68,11 @@ const Profile = () => {
           placeholder={"Type here"}
           className="input input-bordered w-full max-w-xs"
           value={weight}
-          onChange={(e) => setWeight(e.target.value)}
+          onChange={(e) => setWeight(e.target.valueAsNumber)}
         />
       </div>
+
+      <button className="btn btn-secondary">Update</button>
     </div>
   );
 };
