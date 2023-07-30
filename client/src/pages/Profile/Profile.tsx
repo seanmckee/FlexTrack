@@ -1,7 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
-import { FaUser } from "react-icons/fa";
 
 interface User {
   username: string;
@@ -21,8 +20,8 @@ const Profile = () => {
   const [cookies] = useCookies(["access_token"]);
   const userID = window.localStorage.getItem("userID");
   const [user, setUser] = useState<User | null>(null);
-
-  const [username, setUsername] = useState(user?.username);
+  const [username, setUsername] = useState("");
+  const [weight, setWeight] = useState(0);
 
   const fetchProfile = async () => {
     try {
@@ -41,16 +40,34 @@ const Profile = () => {
     fetchProfile();
   }, []);
 
+  useEffect(() => {
+    // Update the username state whenever the user state changes
+    if (user) {
+      setUsername(user.username);
+      setWeight(user.weight);
+    }
+  }, [user]);
+
   return (
     <div className="pt-[75px] p-5">
       <div className="flex">
         <h1 className="text-xl mr-4 mt-2">Username: </h1>
         <input
           type="text"
-          placeholder="Type here"
+          placeholder={"Type here"}
           className="input input-bordered w-full max-w-xs"
           value={username}
           onChange={(e) => setUsername(e.target.value)}
+        />
+      </div>
+      <div className="flex">
+        <h1 className="text-xl mr-4 mt-2">Weight(lbs): </h1>
+        <input
+          type="number"
+          placeholder={"Type here"}
+          className="input input-bordered w-full max-w-xs"
+          value={weight}
+          onChange={(e) => setWeight(e.target.value)}
         />
       </div>
     </div>
