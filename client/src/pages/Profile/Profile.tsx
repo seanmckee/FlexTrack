@@ -60,7 +60,6 @@ const Profile = () => {
           headers: { authorization: cookies.access_token },
         }
       );
-      console.log("Profile Updated");
     } catch (error) {
       console.error(error);
     }
@@ -101,12 +100,15 @@ const Profile = () => {
 
   useEffect(() => {
     fetchProfile();
+  }, []);
+
+  useEffect(() => {
     setHeight({
       ...height,
-      feet: Math.floor(user.height / 12),
-      inches: user.height % 12,
+      feet: Math.floor(user?.height / 12),
+      inches: user?.height % 12,
     });
-  }, []);
+  }, [user?.height]);
 
   // keeps track of total height in inches
   useEffect(() => {
@@ -118,7 +120,7 @@ const Profile = () => {
     <div className="pt-[75px] p-5">
       <form onSubmit={onSubmit}>
         <h1>View or Edit Information Here</h1>
-        <div className="flex">
+        <div className="sm:flex p-5">
           <h1 className="text-xl mr-4 mt-2">Username: </h1>
           <input
             type="text"
@@ -128,7 +130,7 @@ const Profile = () => {
             onChange={(e) => setUser({ ...user, username: e.target.value })}
           />
         </div>
-        <div className="flex">
+        <div className="sm:flex p-5">
           <h1 className="text-xl mr-4 mt-2">Weight: </h1>
           <input
             type="text"
@@ -139,7 +141,7 @@ const Profile = () => {
             onChange={(e) => handleNumberedChange(e, "weight")}
           />
         </div>
-        <div className="flex">
+        <div className="sm:flex p-5">
           <h1 className="text-xl mr-4 mt-2">Age: </h1>
           <input
             type="text"
@@ -151,7 +153,7 @@ const Profile = () => {
           />
         </div>
 
-        <div className="flex">
+        <div className="sm:flex p-5">
           <h1 className="text-xl mr-4 mt-2">Calorie Goal: </h1>
           <input
             type="text"
@@ -163,7 +165,7 @@ const Profile = () => {
           />
         </div>
 
-        <div className="flex">
+        <div className="sm:flex p-5">
           <h1 className="text-xl mr-4 mt-2">Protein Goal: </h1>
           <input
             type="text"
@@ -175,7 +177,7 @@ const Profile = () => {
           />
         </div>
 
-        <div className="flex">
+        <div className="sm:flex p-5">
           <h1 className="text-xl mr-4 mt-2">Weight Goal: </h1>
           <input
             type="text"
@@ -186,13 +188,13 @@ const Profile = () => {
             onChange={(e) => handleNumberedChange(e, "goalWeight")}
           />
         </div>
-        <div className="flex">
+        <div className="sm:flex p-5">
           <h1 className="text-xl mr-4 mt-2">Height ([ft]/[in]): </h1>
           <input
             type="text"
             inputMode="numeric"
             placeholder={"Enter Height (ft)"}
-            className="input input-bordered w-full max-w-xs"
+            className="input input-bordered w-[80px] max-w-xs mr-5"
             value={height.feet === 0 ? "" : String(height.feet)}
             onChange={(e) => handleHeightChange(e, "feet")}
           />
@@ -201,13 +203,13 @@ const Profile = () => {
             type="text"
             inputMode="numeric"
             placeholder={"Enter Height (in)"}
-            className="input input-bordered w-full max-w-xs"
+            className="input input-bordered w-[80px] max-w-xs"
             value={height.inches === 0 ? "" : String(height.inches)}
             onChange={(e) => handleHeightChange(e, "inches")}
           />
         </div>
 
-        <button type="submit" className="btn btn-secondary">
+        <button type="submit" className="btn btn-secondary m-5">
           Update
         </button>
       </form>
