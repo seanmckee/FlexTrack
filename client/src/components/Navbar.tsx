@@ -27,9 +27,20 @@ const Navbar = () => {
       <div className="flex-none">
         <ul className="menu menu-horizontal px-1">
           {window.localStorage.getItem("userID") ? (
-            <li onClick={logout}>
-              <Link to="">Sign Out</Link>
-            </li>
+            <div className="flex">
+              <li>
+                <Link to="/workouts">Workouts</Link>
+              </li>
+              <li>
+                <Link to="/diet">Diet</Link>
+              </li>
+              <li>
+                <Link to="/profile">Profile</Link>
+              </li>
+              <li onClick={logout}>
+                <Link to="">Sign Out</Link>
+              </li>
+            </div>
           ) : (
             <li>
               <Link to="/auth">Sign In</Link>

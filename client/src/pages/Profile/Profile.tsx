@@ -2,7 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
 
-type User = {
+export type User = {
   username: string;
   email: string;
   age: number;
@@ -117,8 +117,8 @@ const Profile = () => {
   }, [height]);
 
   return (
-    <div className="pt-[75px] p-5">
-      <form onSubmit={onSubmit}>
+    <div className="pt-[75px] p-6">
+      <form onSubmit={onSubmit} className="form-control">
         <h1>View or Edit Information Here</h1>
         <div className="sm:flex p-5">
           <h1 className="text-xl mr-4 mt-2">Username: </h1>
@@ -128,6 +128,7 @@ const Profile = () => {
             className="input input-bordered w-full max-w-xs"
             value={user?.username}
             onChange={(e) => setUser({ ...user, username: e.target.value })}
+            readOnly
           />
         </div>
         <div className="sm:flex p-5">
@@ -142,7 +143,7 @@ const Profile = () => {
           />
         </div>
         <div className="sm:flex p-5">
-          <h1 className="text-xl mr-4 mt-2">Age: </h1>
+          <h1 className="text-xl mr-[50px] mt-2">Age: </h1>
           <input
             type="text"
             inputMode="numeric"
@@ -190,6 +191,7 @@ const Profile = () => {
         </div>
         <div className="sm:flex p-5">
           <h1 className="text-xl mr-4 mt-2">Height ([ft]/[in]): </h1>
+
           <input
             type="text"
             inputMode="numeric"
