@@ -2,7 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
 
-interface User {
+type User = {
   username: string;
   email: string;
   age: number;
@@ -13,15 +13,29 @@ interface User {
   goalWeight: number;
   height: number;
   weight: number;
-  workouts: [];
-}
+  workouts: any[];
+};
+
+const initializeUser = {
+  username: "",
+  email: "",
+  age: 0,
+  currentCalories: 0,
+  currentProtein: 0,
+  goalCalories: 0,
+  goalProtein: 0,
+  goalWeight: 0,
+  height: 0,
+  weight: 0,
+  workouts: [],
+};
 
 const Profile = () => {
   const [cookies] = useCookies(["access_token"]);
   const userID = window.localStorage.getItem("userID");
-  const [user, setUser] = useState<User | null>(null);
-  const [username, setUsername] = useState("");
-  const [weight, setWeight] = useState(0);
+  const [user, setUser] = useState<User>(initializeUser);
+  // const [username, setUsername] = useState("");
+  // const [weight, setWeight] = useState(0);
 
   const fetchProfile = async () => {
     try {
@@ -40,14 +54,6 @@ const Profile = () => {
     fetchProfile();
   }, []);
 
-  useEffect(() => {
-    // Update the username state whenever the user state changes
-    if (user) {
-      setUsername(user.username);
-      setWeight(user.weight);
-    }
-  }, [user]);
-
   return (
     <div className="pt-[75px] p-5">
       <h1>View or Edit Information Here</h1>
@@ -57,8 +63,8 @@ const Profile = () => {
           type="text"
           placeholder={"Type here"}
           className="input input-bordered w-full max-w-xs"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
+          value={user?.username}
+          onChange={(e) => setUser({ ...user, username: e.target.value })}
         />
       </div>
       <div className="flex">
@@ -66,9 +72,9 @@ const Profile = () => {
         <input
           type="number"
           placeholder={"Type here"}
-          className="input input-bordered w-full max-w-xs"
-          value={weight}
-          onChange={(e) => setWeight(e.target.valueAsNumber)}
+          className="input input-bordered w-full max-w-xs [-moz-appearance:_textfield] [&::-webkit-inner-spin-button]:m-0 [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:m-0 [&::-webkit-outer-spin-button]:appearance-none"
+          value={String(user?.weight)}
+          onChange={(e) => setUser({ ...user, weight: Number(e.target.value) })}
         />
       </div>
 
