@@ -26,6 +26,24 @@ const Diet = () => {
   const [user, setUser] = useState<User>(initializeUser);
   const [caloriePercentage, setCaloriePercentage] = useState(0);
   const [proteinPercentage, setProteinPercentage] = useState(0);
+  const [calories, setCalories] = useState(0);
+  const [protein, setProtein] = useState(0);
+
+  const handleCalorieChange = (sign: string) => {
+    const signedCalories = sign === "-" ? -calories : calories;
+    try {
+      axios.put(
+        `http://localhost:3000/profile/calories/${userID}`,
+        { calories: signedCalories },
+        { headers: { authorization: cookies.access_token } }
+      );
+      console.log("calories changed");
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  // calories go up if positive number, down if negative
 
   const fetchProfile = async () => {
     try {
@@ -41,7 +59,7 @@ const Diet = () => {
 
   useEffect(() => {
     fetchProfile();
-  }, []);
+  }, [handleCalorieChange]);
 
   useEffect(() => {
     setCaloriePercentage(
@@ -70,7 +88,20 @@ const Diet = () => {
             placeholder="Type here"
             className="input input-bordered w-full max-w-xs"
           />
-          <button className="btn btn-secondary">Add</button>
+          <div className="flex">
+            <button
+              className="btn btn-secondary grow m-1"
+              onClick={() => handleCalorieChange("+")}
+            >
+              + Cal
+            </button>
+            <button
+              className="btn btn-secondary grow m-1"
+              onClick={() => handleCalorieChange("-")}
+            >
+              - Cal
+            </button>
+          </div>
         </div>
       </div>
       <div className="flex">

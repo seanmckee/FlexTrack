@@ -2,7 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
 
-export type User = {
+type User = {
   username: string;
   email: string;
   age: number;
