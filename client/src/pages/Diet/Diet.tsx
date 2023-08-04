@@ -37,7 +37,7 @@ const Diet = () => {
         { calories: signedCalories },
         { headers: { authorization: cookies.access_token } }
       );
-      console.log("calories changed");
+      console.log("calories changed: " + signedCalories);
     } catch (error) {
       console.error(error);
     }
@@ -77,7 +77,7 @@ const Diet = () => {
         <CircularProgressbar
           className="w-[300px] "
           value={caloriePercentage}
-          text={`${caloriePercentage}%`}
+          text={`${Math.round(caloriePercentage)}%`}
         />
         <div className="flex flex-col">
           <h3 className="m-5 text-xl">
@@ -87,6 +87,8 @@ const Diet = () => {
             type="text"
             placeholder="Type here"
             className="input input-bordered w-full max-w-xs"
+            value={calories}
+            onChange={(e) => setCalories(Number(e.target.value))}
           />
           <div className="flex">
             <button
@@ -108,7 +110,7 @@ const Diet = () => {
         <CircularProgressbar
           className="w-[300px] "
           value={proteinPercentage}
-          text={`${proteinPercentage}%`}
+          text={`${Math.round(proteinPercentage)}%`}
         />
         <h3 className="m-5 text-xl">
           Current Protein: {user?.currentProtein} / {user?.goalProtein}
