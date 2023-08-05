@@ -45,6 +45,16 @@ const Diet = () => {
 
   // calories go up if positive number, down if negative
 
+  const handleNumberedChange = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    id: keyof User
+  ) => {
+    const value = e.target.value;
+    const newValue =
+      value === "" ? "" : isNaN(Number(value)) ? user?.[id] : Number(value);
+    setUser({ ...user, [id]: newValue });
+  };
+
   const fetchProfile = async () => {
     try {
       const response = await axios.get(
@@ -87,8 +97,8 @@ const Diet = () => {
             type="text"
             placeholder="Type here"
             className="input input-bordered w-full max-w-xs"
-            value={calories}
-            onChange={(e) => setCalories(Number(e.target.value))}
+            value={calories === 0 ? "" : calories}
+            onChange={(e) => handleNumberedChange(e, "currentCalories")}
           />
           <div className="flex">
             <button
