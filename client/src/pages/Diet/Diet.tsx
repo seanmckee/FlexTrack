@@ -29,6 +29,16 @@ const Diet = () => {
   const [calories, setCalories] = useState(0);
   const [protein, setProtein] = useState(0);
 
+  const handleReset = () => {
+    try {
+      axios.put(`http://localhost:3000/profile/reset/${userID}`, {
+        headers: { authorization: cookies.access_token },
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   const handleCalorieChange = (sign: string) => {
     const signedCalories = sign === "-" ? -calories : calories;
     try {
@@ -87,7 +97,7 @@ const Diet = () => {
 
   useEffect(() => {
     fetchProfile();
-  }, [handleCalorieChange]);
+  }, [handleCalorieChange, handleProteinChange]);
 
   useEffect(() => {
     setCaloriePercentage(
@@ -167,6 +177,12 @@ const Diet = () => {
           </div>
         </div>
       </div>
+      <button
+        className="btn btn-secondary mt-10 w-[50%] m-auto"
+        onClick={handleReset}
+      >
+        Reset
+      </button>
     </div>
   );
 };

@@ -87,4 +87,24 @@ router.put(
   }
 );
 
+// reset current calories and protein to 0
+router.put(
+  "/reset/:userID",
+  verifyToken,
+  async (req: Request, res: Response) => {
+    try {
+      const user = await UserModel.findById(req.params.userID);
+      if (!user) {
+        return res.json({ message: "User does not exist" });
+      }
+      user.currentCalories = 0;
+      user.currentProtein = 0;
+      await user.save();
+      res.json({ message: "Calories and Protein Reset Successfully" });
+    } catch (error) {
+      res.json({ message: error });
+    }
+  }
+);
+
 export { router as profileRouter };
