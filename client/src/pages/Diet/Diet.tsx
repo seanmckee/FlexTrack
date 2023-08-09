@@ -37,13 +37,24 @@ const Diet = () => {
         { calories: signedCalories },
         { headers: { authorization: cookies.access_token } }
       );
-      console.log("calories changed: " + signedCalories);
+      setCalories(calories + signedCalories);
     } catch (error) {
       console.error(error);
     }
   };
 
-  // calories go up if positive number, down if negative
+  const handleProteinChange = (sign: string) => {
+    const signedProtein = sign === "-" ? -protein : protein;
+    try {
+      axios.put(
+        `http://localhost:3000/profile/protein/${userID}`,
+        { protein: signedProtein },
+        { headers: { authorization: cookies.access_token } }
+      );
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   const handleNumberedChange = (
     e: React.ChangeEvent<HTMLInputElement>,
@@ -53,6 +64,13 @@ const Diet = () => {
     const newValue =
       value === "" ? "" : isNaN(Number(value)) ? user?.[id] : Number(value);
     setUser({ ...user, [id]: newValue });
+    if (id === "currentProtein") {
+      setProtein(isNaN(Number(value)) ? 0 : Number(value));
+    } else if (id === "currentCalories") {
+      setCalories(isNaN(Number(value)) ? 0 : Number(value));
+    } else {
+      console.error("handleNumberedChange: Invalid ID");
+    }
   };
 
   const fetchProfile = async () => {
@@ -122,9 +140,32 @@ const Diet = () => {
           value={proteinPercentage}
           text={`${Math.round(proteinPercentage)}%`}
         />
-        <h3 className="m-5 text-xl">
-          Current Protein: {user?.currentProtein} / {user?.goalProtein}
-        </h3>
+        <div>
+          <h3 className="m-5 text-xl">
+            Current Protein: {user?.currentProtein} / {user?.goalProtein}
+          </h3>
+          <input
+            type="text"
+            placeholder="Type here"
+            className="input input-bordered w-full max-w-xs"
+            value={protein === 0 ? "" : protein}
+            onChange={(e) => handleNumberedChange(e, "currentProtein")}
+          />
+          <div className="flex">
+            <button
+              className="btn btn-secondary grow m-1"
+              onClick={() => handleProteinChange("+")}
+            >
+              + Protein
+            </button>
+            <button
+              className="btn btn-secondary grow m-1"
+              onClick={() => handleProteinChange("-")}
+            >
+              - Protein
+            </button>
+          </div>
+        </div>
       </div>
     </div>
   );
