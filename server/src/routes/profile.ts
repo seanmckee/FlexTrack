@@ -2,6 +2,7 @@ import express from "express";
 import { Request, Response } from "express";
 import { verifyToken } from "./auth";
 import { UserModel } from "../models/Users";
+import e from "cors";
 
 const router = express.Router();
 
@@ -57,7 +58,11 @@ router.put(
       if (!user) {
         return res.json({ message: "User does not exist" });
       }
-      user.currentCalories += calories;
+      if (user.currentCalories + calories < 0) {
+        user.currentProtein = 0;
+      } else {
+        user.currentCalories += calories;
+      }
       await user.save();
       res.json({ message: "Calories Updated Successfully" });
     } catch (error) {
@@ -78,7 +83,12 @@ router.put(
       if (!user) {
         return res.json({ message: "User does not exist" });
       }
-      user.currentProtein += protein;
+      if (user.currentProtein + protein < 0) {
+        user.currentProtein = 0;
+      } else {
+        user.currentProtein += protein;
+      }
+
       await user.save();
       res.json({ message: "Protein Updated Successfully" });
     } catch (error) {
