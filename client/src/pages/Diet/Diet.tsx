@@ -29,11 +29,16 @@ const Diet = () => {
   const [calories, setCalories] = useState(0);
   const [protein, setProtein] = useState(0);
 
-  const handleReset = () => {
+  const handleReset = async () => {
     try {
-      axios.put(`http://localhost:3000/profile/reset/${userID}`, {
-        headers: { authorization: cookies.access_token },
-      });
+      const response = await axios.put(
+        `http://localhost:3000/profile/reset/${userID}`,
+        {},
+        {
+          headers: { authorization: cookies.access_token },
+        }
+      );
+      console.log(response.data);
     } catch (error) {
       console.error(error);
     }

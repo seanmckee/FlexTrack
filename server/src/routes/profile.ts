@@ -110,6 +110,7 @@ router.put(
       user.currentCalories = 0;
       user.currentProtein = 0;
       await user.save();
+      console.log(user);
       res.json({ message: "Calories and Protein Reset Successfully" });
     } catch (error) {
       res.json({ message: error });
