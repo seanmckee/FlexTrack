@@ -29,6 +29,9 @@ const Navbar = () => {
           {window.localStorage.getItem("userID") ? (
             <div className="flex">
               <li>
+                <Link to="/schedule">Schedule</Link>
+              </li>
+              <li>
                 <Link to="/workouts">Workouts</Link>
               </li>
               <li>

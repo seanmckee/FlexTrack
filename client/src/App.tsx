@@ -4,6 +4,8 @@ import Auth from "./pages/Auth/Auth";
 import Navbar from "./components/Navbar";
 import Profile from "./pages/Profile/Profile";
 import Diet from "./pages/Diet/Diet";
+import Workouts from "./pages/Workouts/Workouts";
+import Schedule from "./pages/Schedule/Schedule";
 
 function App() {
   return (
@@ -14,8 +16,8 @@ function App() {
         <Route path="/auth" element={<Auth />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/diet" element={<Diet />} />
-        <Route path="/createWorkout" element={<h1>Create Workouts</h1>} />
-        <Route path="/workouts" element={<h1>Execute Workout</h1>} />
+        <Route path="/schedule" element={<Schedule />} />
+        <Route path="/workouts" element={<Workouts />} />
       </Routes>
     </>
   );
