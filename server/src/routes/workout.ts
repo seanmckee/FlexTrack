@@ -6,6 +6,13 @@ import { WorkoutModel, ExerciseModel } from "../models/Workouts";
 
 const router = express.Router();
 
+router.get("/", verifyToken, async (req: Request, res: Response) => {
+  try {
+  } catch (error) {
+    res.json({ message: error });
+  }
+});
+
 // create new workout
 router.post("/:userID", verifyToken, async (req: Request, res: Response) => {
   const { name } = req.body;

@@ -14,6 +14,7 @@ interface IUser extends Document {
   currentCalories: number;
   currentProtein: number;
   workouts: IWorkout[];
+  schedule: IWorkout;
 }
 
 const UserSchema: Schema<IUser> = new Schema({
@@ -29,6 +30,7 @@ const UserSchema: Schema<IUser> = new Schema({
   currentCalories: { type: Number, required: false, default: 0 },
   currentProtein: { type: Number, required: false, default: 0 },
   workouts: [{ type: Schema.Types.ObjectId, ref: "Workout" }],
+  schedule: [{ type: Schema.Types.ObjectId, ref: "Workout" }],
 });
 
 export const UserModel: Model<IUser> = mongoose.model<IUser>(
