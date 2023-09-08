@@ -8,6 +8,11 @@ const router = express.Router();
 
 router.get("/", verifyToken, async (req: Request, res: Response) => {
   try {
+    const response = await UserModel.findById(req.params.userID);
+    if (!response) {
+      res.json({ message: "User does not exist" });
+    }
+    res.json(response);
   } catch (error) {
     res.json({ message: error });
   }
