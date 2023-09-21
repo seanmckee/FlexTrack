@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useCookies } from "react-cookie";
+import { BsFillTrashFill } from "react-icons/bs";
 
 interface Exercise {
   name: string;
@@ -57,6 +58,26 @@ const Workouts = () => {
     formData.exerciseName = "";
     formData.sets = 0;
     formData.reps = 0;
+  };
+
+  const saveWorkout = async () => {
+    event?.preventDefault();
+    const newWorkout = {
+      name: formData.workoutName,
+      exercises: exercises,
+    };
+    setWorkouts((prev) => [...prev, newWorkout]);
+    formData.workoutName = "";
+    formData.exerciseName = "";
+    formData.sets = 0;
+    formData.reps = 0;
+    setExercises([]);
+  };
+
+  const deleteExercise = (index: number) => {
+    const newExercises = [...exercises];
+    newExercises.splice(index, 1);
+    setExercises(newExercises);
   };
 
   const setFormVisible = () => {
@@ -145,15 +166,25 @@ const Workouts = () => {
           </div>
         </form>
         <div>
-          {exercises.map((exercise) => {
+          {exercises.map((exercise, index) => {
             return (
-              <div>
-                <h1>{exercise.name}</h1>
-                <h1>{exercise.sets}</h1>
-                <h1>{exercise.reps}</h1>
+              <div className="flex">
+                <h1 className="p-2 border my-2 rounded-md w-[500px] flex justify-between">
+                  <span className="">{exercise.name}</span>
+                  <span>
+                    {exercise.sets} sets x {exercise.reps} reps
+                  </span>
+                </h1>
+                <button
+                  onClick={() => deleteExercise(index)}
+                  className="ml-2 mt-1 px-3 btn btn-secondary rounded-md"
+                >
+                  <BsFillTrashFill size={16} />
+                </button>
               </div>
             );
           })}
+          <button className="btn btn-secondary mt-10">Save Workout</button>
         </div>
       </div>
     </div>
