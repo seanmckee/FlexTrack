@@ -11,6 +11,7 @@ import {
   verticalListSortingStrategy,
 } from "@dnd-kit/sortable";
 import { v4 as uuidv4 } from "uuid";
+import NewWorkoutForm from "./NewWorkoutForm";
 
 const SortableExercise = ({ exercise }: { exercise: Exercise }) => {
   const { attributes, listeners, setNodeRef, transform, transition } =
@@ -48,7 +49,7 @@ interface Workout {
   exercises: Exercise[];
 }
 
-interface FormData {
+interface ExerciseFormData {
   workoutName: string;
   exerciseName: string;
   sets: number;
@@ -62,7 +63,7 @@ const Workouts = () => {
   const [showForm, setShowForm] = useState(false);
   const [exercises, setExercises] = useState<Exercise[]>([]);
   const [workouts, setWorkouts] = useState<Workout[]>([]); // [
-  const [formData, setFormData] = useState<FormData>({
+  const [formData, setFormData] = useState<ExerciseFormData>({
     workoutName: "",
     exerciseName: "",
     sets: 0,
@@ -160,80 +161,12 @@ const Workouts = () => {
       </button>
       <div className={showForm ? "" : "hidden"}>
         <h1 className="text-xl mt-5">Create New Workout</h1>
-        <form>
-          <label className="label">
-            <span className="label-text">Workout Name</span>
-          </label>
-          <input
-            type="text"
-            placeholder="Type here"
-            className="input input-bordered w-full max-w-xs"
-            value={formData.workoutName}
-            onChange={(e) =>
-              setFormData((prev) => ({ ...prev, workoutName: e.target.value }))
-            }
-          />
-
-          <div className="flex">
-            <div className="my-1">
-              <label className="label">
-                <span className="label-text">Name</span>
-              </label>
-              <input
-                type="text"
-                placeholder="Type here"
-                className="input input-bordered w-full max-w-xs"
-                value={formData.exerciseName}
-                onChange={(e) =>
-                  setFormData((prev) => ({
-                    ...prev,
-                    exerciseName: e.target.value,
-                  }))
-                }
-              />
-            </div>
-
-            <div className="my-1">
-              <label className="label">
-                <span className="label-text">Sets</span>
-              </label>
-              <input
-                type="number"
-                placeholder="Type here"
-                className="input input-bordered w-full max-w-xs"
-                value={formData.sets}
-                onChange={(e) =>
-                  setFormData((prev) => ({
-                    ...prev,
-                    sets: e.target.valueAsNumber,
-                  }))
-                }
-              />
-            </div>
-            <div className="my-1">
-              <label className="label">
-                <span className="label-text">Reps</span>
-              </label>
-              <input
-                type="number"
-                placeholder="Type here"
-                className="input input-bordered w-full max-w-xs"
-                value={formData.reps}
-                onChange={(e) =>
-                  setFormData((prev) => ({
-                    ...prev,
-                    reps: e.target.valueAsNumber,
-                  }))
-                }
-              />
-            </div>
-            <div>
-              <button onClick={addExercise} className="btn btn-secondary mt-10">
-                Add
-              </button>
-            </div>
-          </div>
-        </form>
+        {/* form used to go here */}
+        <NewWorkoutForm
+          formData={formData}
+          setFormData={setFormData}
+          addExercise={addExercise}
+        />
         <div>
           <DndContext collisionDetection={closestCenter} onDragEnd={onDragEnd}>
             <SortableContext
