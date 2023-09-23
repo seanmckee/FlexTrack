@@ -5,28 +5,17 @@ interface IWorkout extends Document {
   exercises: IExercise[];
 }
 
-interface IExerciseSet {
-  done: boolean;
-  reps: number;
-  weight: number;
-}
-
 interface IExercise extends Document {
   name: string;
-  setNumber: number; // how many sets will user do for this exercise
-  sets: IExerciseSet[];
+  sets: number;
+  reps: number;
 }
 
-const ExerciseSetSchema: Schema<IExerciseSet> = new Schema({
-  done: { type: Boolean, required: true, default: false }, // Default value is false, indicating the set is not done initially
-  reps: { type: Number, required: true },
-  weight: { type: Number, required: false, default: 0 },
-});
-
 const ExerciseSchema: Schema<IExercise> = new Schema({
+  id: { type: String, required: true },
   name: { type: String, required: true },
-  setNumber: { type: Number, required: true }, // how many sets will user do for this exercise
-  sets: [ExerciseSetSchema],
+  sets: { type: Number, required: true },
+  reps: { type: Number, required: true },
 });
 
 const WorkoutSchema: Schema<IWorkout> = new Schema({
@@ -35,13 +24,10 @@ const WorkoutSchema: Schema<IWorkout> = new Schema({
 });
 
 // Define and export the models
-const ExerciseSetModel = mongoose.model<IExerciseSet>(
-  "ExerciseSet",
-  ExerciseSetSchema
-);
+
 const ExerciseModel = mongoose.model<IExercise>("Exercise", ExerciseSchema);
 const WorkoutModel = mongoose.model<IWorkout>("Workout", WorkoutSchema);
 
-export { ExerciseSetModel, ExerciseModel, WorkoutModel };
+export { ExerciseModel, WorkoutModel };
 
-export type { IWorkout, IExercise, IExerciseSet };
+export type { IWorkout, IExercise };

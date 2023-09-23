@@ -56,30 +56,12 @@ const Workouts = () => {
 
   const [showForm, setShowForm] = useState(false);
   const [exercises, setExercises] = useState<Exercise[]>([]);
-  const [workouts, setWorkouts] = useState([]);
   const [formData, setFormData] = useState<FormData>({
     workoutName: "",
     exerciseName: "",
     sets: 0,
     reps: 0,
   });
-
-  const fetchWorkouts = async () => {
-    try {
-      const response = await axios.get(
-        `http://localhost:3000/profile/${userID}`,
-        { headers: { authorization: cookies.access_token } }
-      );
-      setWorkouts(response.data.workouts);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  useEffect(() => {
-    fetchWorkouts();
-    console.log(workouts);
-  }, []);
 
   const addExercise = () => {
     event?.preventDefault();
@@ -101,7 +83,20 @@ const Workouts = () => {
       name: formData.workoutName,
       exercises: exercises,
     };
-    setWorkouts((prev) => [...prev, newWorkout]);
+
+    console.log(newWorkout);
+
+    try {
+      const response = await axios.post(
+        `http://localhost:3000/workout/${userID}`,
+        newWorkout,
+        { headers: { authorization: cookies.access_token } }
+      );
+      console.log(response);
+    } catch (error) {
+      console.error(error);
+    }
+
     formData.workoutName = "";
     formData.exerciseName = "";
     formData.sets = 0;
@@ -235,7 +230,9 @@ const Workouts = () => {
               })}
             </SortableContext>
           </DndContext>
-          <button className="btn btn-secondary mt-10">Save Workout</button>
+          <button onClick={saveWorkout} className="btn btn-secondary mt-10">
+            Save Workout
+          </button>
         </div>
       </div>
     </div>

@@ -20,18 +20,31 @@ router.get("/", verifyToken, async (req: Request, res: Response) => {
 
 // create new workout
 router.post("/:userID", verifyToken, async (req: Request, res: Response) => {
-  const { name } = req.body;
+  const { name, exercises } = req.body;
+  console.log("exercises: " + JSON.stringify(exercises) + " name: " + name);
+
   try {
     const user = await UserModel.findById(req.params.userID);
     if (!user) {
       return res.json({ message: "User does not exist" });
     }
+    if (!Array.isArray(exercises)) {
+      return res
+        .status(400)
+        .json({ message: "Exercises must be an array of objects" });
+    }
     const newWorkout = new WorkoutModel({
       name,
+      exercises,
     });
+    console.log("new workout: " + newWorkout);
+    console.log("workout created");
     await newWorkout.save();
+    console.log("workout saved");
     user.workouts.push(newWorkout);
+    console.log("workout added to user");
     await user.save();
+    console.log("Workout Created and added to User Successfully");
     res.json({ message: "Workout Created and added to User Successfully" });
   } catch (error) {
     res.json({ message: error });
