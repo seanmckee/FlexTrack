@@ -43,6 +43,11 @@ interface Exercise {
   reps: number;
 }
 
+interface Workout {
+  name: string;
+  exercises: Exercise[];
+}
+
 interface FormData {
   workoutName: string;
   exerciseName: string;
@@ -56,6 +61,7 @@ const Workouts = () => {
 
   const [showForm, setShowForm] = useState(false);
   const [exercises, setExercises] = useState<Exercise[]>([]);
+  const [workouts, setWorkouts] = useState<Workout[]>([]); // [
   const [formData, setFormData] = useState<FormData>({
     workoutName: "",
     exerciseName: "",
@@ -77,8 +83,11 @@ const Workouts = () => {
     formData.reps = 0;
   };
 
+  const [triggerEffect, setTriggerEffect] = useState(false);
+
   const saveWorkout = async () => {
     event?.preventDefault();
+    setTriggerEffect((current) => !current);
     const newWorkout = {
       name: formData.workoutName,
       exercises: exercises,
@@ -127,6 +136,22 @@ const Workouts = () => {
   const setFormVisible = () => {
     setShowForm((current) => !current);
   };
+
+  const fetchWorkouts = async () => {
+    try {
+      const response = await axios.get(
+        `http://localhost:3000/workout/${userID}`,
+        { headers: { authorization: cookies.access_token } }
+      );
+      setWorkouts(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    fetchWorkouts();
+  }, [triggerEffect]);
 
   return (
     <div className="pt-[75px] p-6">
@@ -235,6 +260,25 @@ const Workouts = () => {
           </button>
         </div>
       </div>
+      {workouts.map((workout) => {
+        return (
+          <div className="my-5 border-2 rounded-md p-5" key={workout.name}>
+            <h1 className="text-xl">{workout.name}</h1>
+            {workout.exercises.map((exercise) => {
+              return (
+                <div className="flex" key={exercise.id}>
+                  <h1 className="p-2 border my-2 rounded-md w-[500px] flex justify-between">
+                    <span className="">{exercise.name}</span>
+                    <span>
+                      {exercise.sets} sets x {exercise.reps} reps
+                    </span>
+                  </h1>
+                </div>
+              );
+            })}
+          </div>
+        );
+      })}
     </div>
   );
 };

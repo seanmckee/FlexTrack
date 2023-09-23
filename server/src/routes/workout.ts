@@ -6,13 +6,19 @@ import { WorkoutModel, ExerciseModel } from "../models/Workouts";
 
 const router = express.Router();
 
-router.get("/", verifyToken, async (req: Request, res: Response) => {
+// get all user's workouts by ID
+router.get("/:userID", verifyToken, async (req: Request, res: Response) => {
   try {
     const response = await UserModel.findById(req.params.userID);
     if (!response) {
       res.json({ message: "User does not exist" });
     }
-    res.json(response);
+    if (!response?.workouts) {
+      res.json({ message: "User has no workouts" });
+    }
+    const workouts = await WorkoutModel.find({ _id: response?.workouts });
+
+    res.json(workouts);
   } catch (error) {
     res.json({ message: error });
   }
@@ -50,36 +56,5 @@ router.post("/:userID", verifyToken, async (req: Request, res: Response) => {
     res.json({ message: error });
   }
 });
-
-// create new exercise
-router.post(
-  "/:userID/:workoutID",
-  verifyToken,
-  async (req: Request, res: Response) => {
-    const { name, setNumber } = req.body;
-    try {
-      const workout = await WorkoutModel.findById(req.params.workoutID);
-      if (!workout) {
-        return res.json({ message: "Workout does not exist" });
-      }
-      const user = await UserModel.findById(req.params.userID);
-      if (!user) {
-        return res.json({ message: "User does not exist" });
-      }
-      const newExercise = new ExerciseModel({
-        name,
-        setNumber,
-      });
-
-      workout.exercises.push(newExercise);
-      await workout.save();
-      res.json({
-        message: "Exercise Created and added to Workout Successfully",
-      });
-    } catch (error) {
-      res.json({ message: error });
-    }
-  }
-);
 
 export { router as workoutRouter };
