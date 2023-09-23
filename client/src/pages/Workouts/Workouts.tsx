@@ -2,8 +2,42 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { useCookies } from "react-cookie";
 import { BsFillTrashFill } from "react-icons/bs";
+import { DndContext, closestCenter } from "@dnd-kit/core";
+import { CSS } from "@dnd-kit/utilities";
+import {
+  SortableContext,
+  arrayMove,
+  useSortable,
+  verticalListSortingStrategy,
+} from "@dnd-kit/sortable";
+import { v4 as uuidv4 } from "uuid";
+
+const SortableExercise = ({ exercise }: { exercise: Exercise }) => {
+  const { attributes, listeners, setNodeRef, transform, transition } =
+    useSortable({ id: exercise.id });
+  const style = {
+    transform: CSS.Transform.toString(transform),
+    transition,
+  };
+  return (
+    <h1
+      ref={setNodeRef}
+      key={exercise.id}
+      {...attributes}
+      {...listeners}
+      style={style}
+      className="p-2 border my-2 rounded-md w-[500px] flex justify-between"
+    >
+      <span className="">{exercise.name}</span>
+      <span>
+        {exercise.sets} sets x {exercise.reps} reps
+      </span>
+    </h1>
+  );
+};
 
 interface Exercise {
+  id: number | string;
   name: string;
   sets: number;
   reps: number;
@@ -50,6 +84,7 @@ const Workouts = () => {
   const addExercise = () => {
     event?.preventDefault();
     const newExercise: Exercise = {
+      id: uuidv4(),
       name: formData.exerciseName,
       sets: formData.sets,
       reps: formData.reps,
@@ -78,6 +113,20 @@ const Workouts = () => {
     const newExercises = [...exercises];
     newExercises.splice(index, 1);
     setExercises(newExercises);
+  };
+
+  const onDragEnd = (event: any) => {
+    const { active, over } = event;
+    if (active.id === over.id) return;
+    setExercises((exercises) => {
+      const oldIndex = exercises.findIndex(
+        (exercise) => exercise.id === active.id
+      );
+      const newIndex = exercises.findIndex(
+        (exercise) => exercise.id === over.id
+      );
+      return arrayMove(exercises, oldIndex, newIndex);
+    });
   };
 
   const setFormVisible = () => {
@@ -166,24 +215,26 @@ const Workouts = () => {
           </div>
         </form>
         <div>
-          {exercises.map((exercise, index) => {
-            return (
-              <div className="flex">
-                <h1 className="p-2 border my-2 rounded-md w-[500px] flex justify-between">
-                  <span className="">{exercise.name}</span>
-                  <span>
-                    {exercise.sets} sets x {exercise.reps} reps
-                  </span>
-                </h1>
-                <button
-                  onClick={() => deleteExercise(index)}
-                  className="ml-2 mt-1 px-3 btn btn-secondary rounded-md"
-                >
-                  <BsFillTrashFill size={16} />
-                </button>
-              </div>
-            );
-          })}
+          <DndContext collisionDetection={closestCenter} onDragEnd={onDragEnd}>
+            <SortableContext
+              items={exercises}
+              strategy={verticalListSortingStrategy}
+            >
+              {exercises.map((exercise, index) => {
+                return (
+                  <div className="flex" key={exercise.id}>
+                    <SortableExercise exercise={exercise} />
+                    <button
+                      onClick={() => deleteExercise(index)}
+                      className="ml-2 mt-1 px-3 btn btn-secondary rounded-md"
+                    >
+                      <BsFillTrashFill size={16} />
+                    </button>
+                  </div>
+                );
+              })}
+            </SortableContext>
+          </DndContext>
           <button className="btn btn-secondary mt-10">Save Workout</button>
         </div>
       </div>
