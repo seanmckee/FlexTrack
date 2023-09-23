@@ -24,6 +24,24 @@ router.get("/:userID", verifyToken, async (req: Request, res: Response) => {
   }
 });
 
+// delete workout by ID
+router.delete(
+  "/:workoutID",
+  verifyToken,
+  async (req: Request, res: Response) => {
+    try {
+      const workout = await WorkoutModel.findById(req.params.workoutID);
+      if (!workout) {
+        return res.json({ message: "Workout does not exist" });
+      }
+      await workout.deleteOne();
+      res.json({ message: "Workout Deleted Successfully" });
+    } catch (error) {
+      res.json({ message: error });
+    }
+  }
+);
+
 // create new workout
 router.post("/:userID", verifyToken, async (req: Request, res: Response) => {
   const { name, exercises } = req.body;
