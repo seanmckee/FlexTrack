@@ -45,6 +45,7 @@ interface Exercise {
 }
 
 interface Workout {
+  _id: string;
   name: string;
   exercises: Exercise[];
 }
@@ -120,6 +121,21 @@ const Workouts = () => {
     setExercises(newExercises);
   };
 
+  const deleteWorkout = async (index: number, id: string) => {
+    console.log(workouts);
+    const newWorkouts = [...workouts];
+    newWorkouts.splice(index, 1);
+    setWorkouts(newWorkouts);
+
+    try {
+      await axios.delete(`http://localhost:3000/workout/${id}`, {
+        headers: { authorization: cookies.access_token },
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   const onDragEnd = (event: any) => {
     const { active, over } = event;
     if (active.id === over.id) return;
@@ -193,15 +209,24 @@ const Workouts = () => {
           </button>
         </div>
       </div>
-      {workouts.map((workout) => {
+      {workouts.map((workout, index) => {
         return (
-          <div className="my-5 border-2 rounded-md p-5" key={workout.name}>
+          <div className="my-5 border-2 rounded-md p-5" key={workout._id}>
             <h1 className="text-xl">{workout.name}</h1>
+            <button
+              onClick={() => deleteWorkout(index, workout._id)}
+              className="ml-2 mt-1 px-3 btn btn-secondary rounded-md"
+            >
+              <BsFillTrashFill size={16} />
+            </button>
             {workout.exercises.map((exercise) => {
               return (
                 <div className="flex" key={exercise.id}>
                   <h1 className="p-2 border my-2 rounded-md w-[500px] flex justify-between">
-                    <span className="">{exercise.name}</span>
+                    <div>
+                      <span className="">{exercise.name}</span>
+                    </div>
+
                     <span>
                       {exercise.sets} sets x {exercise.reps} reps
                     </span>

@@ -34,7 +34,9 @@ router.delete(
       if (!workout) {
         return res.json({ message: "Workout does not exist" });
       }
+      console.log("workout: " + workout);
       await workout.deleteOne();
+      console.log("Workout Deleted Successfully");
       res.json({ message: "Workout Deleted Successfully" });
     } catch (error) {
       res.json({ message: error });
