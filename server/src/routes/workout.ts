@@ -6,7 +6,7 @@ import { WorkoutModel, ExerciseModel } from "../models/Workouts";
 
 const router = express.Router();
 
-// get all user's workouts by ID
+// get all user's workouts by userID
 router.get("/:userID", verifyToken, async (req: Request, res: Response) => {
   try {
     const response = await UserModel.findById(req.params.userID);
@@ -24,7 +24,7 @@ router.get("/:userID", verifyToken, async (req: Request, res: Response) => {
   }
 });
 
-// get
+// get workout by ID
 
 // delete workout by ID
 router.delete(

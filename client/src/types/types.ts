@@ -31,3 +31,8 @@ export interface ExerciseFormData {
   sets: number;
   reps: number;
 }
+
+export type Height = {
+  feet: number;
+  inches: number;
+};

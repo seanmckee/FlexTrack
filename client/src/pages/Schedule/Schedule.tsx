@@ -1,8 +1,13 @@
 import { useEffect, useState } from "react";
 import { FiChevronDown } from "react-icons/fi";
 import { Workout } from "../../types/types";
+import axios from "axios";
+import { useCookies } from "react-cookie";
 
 const Schedule = () => {
+  const [cookies] = useCookies(["access_token"]);
+  const userID = window.localStorage.getItem("userID");
+
   // sets which day of the week's workouts to display
   const [day, setDay] = useState<string>("Monday");
 
@@ -22,6 +27,18 @@ const Schedule = () => {
   const [workouts, setWorkouts] = useState<Workout[]>([]);
 
   // fetch all user's workouts from db
+  const fetchWorkouts = async () => {
+    try {
+      const response = await axios.get(
+        `http://localhost:3000/workout/${userID}`,
+        { headers: { authorization: cookies.access_token } }
+      );
+
+      setWorkouts(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   // get current day's workout to display
 
@@ -29,6 +46,7 @@ const Schedule = () => {
 
   useEffect(() => {
     setDay(currentDayName);
+    fetchWorkouts();
   }, []);
 
   return (
