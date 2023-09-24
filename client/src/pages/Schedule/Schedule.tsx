@@ -18,6 +18,10 @@ const Schedule = () => {
   const currentDayIndex = currentDate.getDay();
   const currentDayName = daysOfWeek[currentDayIndex];
 
+  // get current day's workout to display
+
+  // set current day's workout to display
+
   useEffect(() => {
     setDay(currentDayName);
   }, []);
@@ -29,12 +33,18 @@ const Schedule = () => {
           {day} <FiChevronDown />
         </summary>
         <ul className="p-2 shadow menu dropdown-content z-[1] bg-base-100 rounded-box w-52">
-          <li>
-            <a>Item 1</a>
-          </li>
-          <li>
-            <a>Item 2</a>
-          </li>
+          {daysOfWeek.map((day) => {
+            return (
+              <li key={day}>
+                <button
+                  onClick={() => setDay(day)}
+                  className="btn btn-ghost w-full"
+                >
+                  {day}
+                </button>
+              </li>
+            );
+          })}
         </ul>
       </details>
     </div>

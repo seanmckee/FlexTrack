@@ -14,7 +14,7 @@ interface IUser extends Document {
   currentCalories: number;
   currentProtein: number;
   workouts: IWorkout[];
-  schedule: IWorkout;
+  schedule: IWorkout[];
 }
 
 const UserSchema: Schema<IUser> = new Schema({

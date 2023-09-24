@@ -173,7 +173,7 @@ const Workouts = () => {
   return (
     <div className="pt-[75px] p-6">
       <button onClick={setFormVisible} className="btn btn-secondary">
-        New Workout
+        {showForm ? "Close Form" : "New Workout"}
       </button>
       <div className={showForm ? "" : "hidden"}>
         <h1 className="text-xl mt-5">Create New Workout</h1>
