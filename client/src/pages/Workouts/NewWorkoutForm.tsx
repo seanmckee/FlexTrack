@@ -1,11 +1,5 @@
 import React from "react";
-
-interface ExerciseFormData {
-  workoutName: string;
-  exerciseName: string;
-  sets: number;
-  reps: number;
-}
+import { ExerciseFormData } from "../../types/types";
 
 type ChildProps = {
   formData: ExerciseFormData;

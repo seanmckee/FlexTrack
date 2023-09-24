@@ -11,3 +11,23 @@ export type User = {
   weight: number;
   workouts: any[];
 };
+
+export interface Exercise {
+  id: number | string;
+  name: string;
+  sets: number;
+  reps: number;
+}
+
+export interface Workout {
+  _id: string;
+  name: string;
+  exercises: Exercise[];
+}
+
+export interface ExerciseFormData {
+  workoutName: string;
+  exerciseName: string;
+  sets: number;
+  reps: number;
+}

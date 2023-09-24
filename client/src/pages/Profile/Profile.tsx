@@ -1,25 +1,7 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { useCookies } from "react-cookie";
-
-type User = {
-  username: string;
-  email: string;
-  age: number;
-  currentCalories: number;
-  currentProtein: number;
-  goalCalories: number;
-  goalProtein: number;
-  goalWeight: number;
-  height: number;
-  weight: number;
-  workouts: any[];
-};
-
-type Height = {
-  feet: number;
-  inches: number;
-};
+import { Height, User } from "../../types/types";
 
 const initializeUser = {
   username: "",

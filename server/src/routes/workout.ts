@@ -24,6 +24,8 @@ router.get("/:userID", verifyToken, async (req: Request, res: Response) => {
   }
 });
 
+// get
+
 // delete workout by ID
 router.delete(
   "/:workoutID",

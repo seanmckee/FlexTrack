@@ -12,6 +12,7 @@ import {
 } from "@dnd-kit/sortable";
 import { v4 as uuidv4 } from "uuid";
 import NewWorkoutForm from "./NewWorkoutForm";
+import { Exercise, ExerciseFormData, Workout } from "../../types/types";
 
 const SortableExercise = ({ exercise }: { exercise: Exercise }) => {
   const { attributes, listeners, setNodeRef, transform, transition } =
@@ -36,26 +37,6 @@ const SortableExercise = ({ exercise }: { exercise: Exercise }) => {
     </h1>
   );
 };
-
-interface Exercise {
-  id: number | string;
-  name: string;
-  sets: number;
-  reps: number;
-}
-
-interface Workout {
-  _id: string;
-  name: string;
-  exercises: Exercise[];
-}
-
-interface ExerciseFormData {
-  workoutName: string;
-  exerciseName: string;
-  sets: number;
-  reps: number;
-}
 
 const Workouts = () => {
   const [cookies] = useCookies(["access_token"]);

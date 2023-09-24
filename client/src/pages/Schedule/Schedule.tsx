@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import { FiChevronDown } from "react-icons/fi";
+import { Workout } from "../../types/types";
 
 const Schedule = () => {
   // sets which day of the week's workouts to display
@@ -17,6 +18,10 @@ const Schedule = () => {
   const currentDate = new Date();
   const currentDayIndex = currentDate.getDay();
   const currentDayName = daysOfWeek[currentDayIndex];
+
+  const [workouts, setWorkouts] = useState<Workout[]>([]);
+
+  // fetch all user's workouts from db
 
   // get current day's workout to display
 
