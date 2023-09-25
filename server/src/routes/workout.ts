@@ -31,17 +31,18 @@ router.put("/:userID", verifyToken, async (req: Request, res: Response) => {
     const user = await UserModel.findById(req.params.userID);
     if (!user) {
       res.json({ message: "User does not exist" });
+      return;
     }
     const workout = await WorkoutModel.findById(workoutID);
     if (!workout) {
       res.json({ message: "Workout does not exist" });
-    }
-    if (!Array.isArray(user.schedule[index])) {
-      user.schedule[index] = [];
+      return;
     }
 
-    user?.schedule[index].push(workout);
-    await user?.save();
+    if (user) {
+      user.schedule[index] = workout;
+      await user.save();
+    }
   } catch (error) {
     res.json({ message: error });
   }

@@ -9,7 +9,16 @@ const Schedule = () => {
   const userID = window.localStorage.getItem("userID");
 
   // sets which day of the week's workouts to display
-  const [day, setDay] = useState<string>("Monday");
+  const [workoutSelection, setWorkoutSelection] = useState<string[]>([
+    "rest",
+    "rest",
+    "rest",
+    "rest",
+    "rest",
+    "rest",
+    "rest",
+    "rest",
+  ]);
 
   const daysOfWeek = [
     "Sunday",
@@ -45,8 +54,6 @@ const Schedule = () => {
   // set current day's workout to display
 
   useEffect(() => {
-    setDay(today);
-
     fetchWorkouts();
   }, []);
 
@@ -61,9 +68,22 @@ const Schedule = () => {
           }
           key={index}
         >
-          <div className="flex justify-between">
-            <p>{day}</p>
-            <p>test</p>
+          <div className="flex justify-between items-center">
+            <p className="text-2xl">{day}</p>
+            <div className="flex">
+              <div className="relative max-w-sm z-0">
+                <select className="btn btn-neutral w-full h-full p-2.5 border rounded-md outline-none appearance-none text-center bg-inherit">
+                  {workouts.map((workout, index) => (
+                    <option className="bg-inherit p-5" key={index}>
+                      {workout.name}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <button className="btn btn-outline btn-secondary mx-2 rounded-smd">
+                View
+              </button>
+            </div>
           </div>
         </div>
       ))}
