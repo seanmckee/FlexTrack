@@ -24,7 +24,28 @@ router.get("/:userID", verifyToken, async (req: Request, res: Response) => {
   }
 });
 
-// get workout by ID
+// add workout to week by workoutID and index
+router.put("/:userID", verifyToken, async (req: Request, res: Response) => {
+  const { workoutID, index } = req.body;
+  try {
+    const user = await UserModel.findById(req.params.userID);
+    if (!user) {
+      res.json({ message: "User does not exist" });
+    }
+    const workout = await WorkoutModel.findById(workoutID);
+    if (!workout) {
+      res.json({ message: "Workout does not exist" });
+    }
+    if (!Array.isArray(user.schedule[index])) {
+      user.schedule[index] = [];
+    }
+
+    user?.schedule[index].push(workout);
+    await user?.save();
+  } catch (error) {
+    res.json({ message: error });
+  }
+});
 
 // delete workout by ID
 router.delete(
