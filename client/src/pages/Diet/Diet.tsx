@@ -116,11 +116,20 @@ const Diet = () => {
 
   return (
     <div className="pt-[75px] p-6 flex flex-col">
+      {Number.isNaN(proteinPercentage) || Number.isNaN(caloriePercentage) ? (
+        <h1 className="mb-5">Please fill out your profile information</h1>
+      ) : (
+        ""
+      )}
       <div className="flex">
         <CircularProgressbar
           className="w-[300px] "
           value={caloriePercentage}
-          text={`${Math.round(caloriePercentage)}%`}
+          text={
+            Number.isNaN(caloriePercentage)
+              ? "0"
+              : `${Math.round(caloriePercentage)}%`
+          }
         />
         <div className="flex flex-col">
           <h3 className="m-5 text-xl">
@@ -153,7 +162,11 @@ const Diet = () => {
         <CircularProgressbar
           className="w-[300px] "
           value={proteinPercentage}
-          text={`${Math.round(proteinPercentage)}%`}
+          text={
+            Number.isNaN(proteinPercentage)
+              ? "0"
+              : `${Math.round(proteinPercentage)}%`
+          }
         />
         <div>
           <h3 className="m-5 text-xl">

@@ -153,7 +153,7 @@ const Profile = () => {
           <input
             type="text"
             inputMode="numeric"
-            placeholder={"Enter Protein Goal (g)"}
+            placeholder={"Enter Protein Goal"}
             className="input input-bordered w-full max-w-xs"
             value={user?.goalProtein === 0 ? "" : String(user?.goalProtein)}
             onChange={(e) => handleNumberedChange(e, "goalProtein")}
