@@ -31,9 +31,25 @@ const Schedule = () => {
   ];
   const currentDate = new Date();
   const currentDayIndex = currentDate.getDay();
-  const today = daysOfWeek[currentDayIndex];
+
+  const [isRestDay, setIsRestDay] = useState<boolean[]>([
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+    false,
+  ]);
 
   const [workouts, setWorkouts] = useState<Workout[]>([]);
+
+  const changeIsRestDay = (index: number) => {
+    const newIsRestDay = [...isRestDay];
+    newIsRestDay[index] = !newIsRestDay[index];
+    setIsRestDay(newIsRestDay);
+    console.log(isRestDay);
+  };
 
   // fetch all user's workouts from db
   const fetchWorkouts = async () => {
@@ -71,13 +87,31 @@ const Schedule = () => {
           <div className="flex justify-between items-center">
             <p className="text-2xl">{day}</p>
             <div className="flex">
+              <label className="cursor-pointer label mx-2">
+                <span className="label-text mx-2">Rest Day</span>
+                <input
+                  type="checkbox"
+                  checked={isRestDay[index]}
+                  onChange={() => changeIsRestDay(index)}
+                  className="checkbox checkbox-secondary checkbox-sm"
+                />
+              </label>
               <div className="relative max-w-sm z-0">
-                <select className="btn btn-neutral w-full h-full p-2.5 border rounded-md outline-none appearance-none text-center bg-inherit">
-                  {workouts.map((workout, index) => (
-                    <option className="bg-inherit p-5" key={index}>
-                      {workout.name}
+                <select
+                  disabled={isRestDay[index]}
+                  className="btn btn-neutral w-full h-full p-2.5 border rounded-md outline-none appearance-none text-center bg-inherit"
+                >
+                  {workouts.length === 0 ? (
+                    <option className="bg-inherit p-5">
+                      Please Create a Workout
                     </option>
-                  ))}
+                  ) : (
+                    workouts.map((workout, workoutIndex) => (
+                      <option key={workoutIndex} className="bg-inherit p-5">
+                        {isRestDay[index] ? "Rest Day" : workout.name}
+                      </option>
+                    ))
+                  )}
                 </select>
               </div>
               <button className="btn btn-outline btn-secondary mx-2 rounded-smd">
