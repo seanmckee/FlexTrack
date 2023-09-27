@@ -24,6 +24,29 @@ router.get("/:userID", verifyToken, async (req: Request, res: Response) => {
   }
 });
 
+// get schedule by userID
+router.get(
+  "/schedule/:userID",
+  verifyToken,
+  async (req: Request, res: Response) => {
+    console.log("getting schedule");
+    try {
+      const response = await UserModel.findById(req.params.userID);
+      if (!response) {
+        res.json({ message: "User does not exist" });
+      }
+      if (!response?.schedule) {
+        res.json({ message: "User has no schedule" });
+      }
+      const schedule = await WorkoutModel.find({ _id: response?.schedule });
+
+      res.json(schedule);
+    } catch (error) {
+      res.json({ message: error });
+    }
+  }
+);
+
 // add workout to week by workoutID and index
 router.put("/:userID", verifyToken, async (req: Request, res: Response) => {
   const { workoutID, index } = req.body;

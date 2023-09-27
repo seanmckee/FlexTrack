@@ -42,6 +42,8 @@ const Schedule = () => {
     false,
   ]);
 
+  const [schedule, setSchedule] = useState<string[]>([]);
+
   const [workouts, setWorkouts] = useState<Workout[]>([]);
 
   const changeIsRestDay = (index: number) => {
@@ -65,12 +67,27 @@ const Schedule = () => {
     }
   };
 
+  // get schedule from db
+  const fetchSchedule = async () => {
+    try {
+      const response = await axios.get(
+        `http://localhost:3000/workout/schedule/${userID}`,
+        { headers: { authorization: cookies.access_token } }
+      );
+      setSchedule(response.data);
+      console.log(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   // get current day's workout to display
 
   // set current day's workout to display
 
   useEffect(() => {
     fetchWorkouts();
+    fetchSchedule();
   }, []);
 
   return (
