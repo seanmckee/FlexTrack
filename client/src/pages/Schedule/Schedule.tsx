@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { FiChevronDown } from "react-icons/fi";
 import { Workout } from "../../types/types";
 import axios from "axios";
 import { useCookies } from "react-cookie";
@@ -7,18 +6,6 @@ import { useCookies } from "react-cookie";
 const Schedule = () => {
   const [cookies] = useCookies(["access_token"]);
   const userID = window.localStorage.getItem("userID");
-
-  // sets which day of the week's workouts to display
-  const [workoutSelection, setWorkoutSelection] = useState<string[]>([
-    "rest",
-    "rest",
-    "rest",
-    "rest",
-    "rest",
-    "rest",
-    "rest",
-    "rest",
-  ]);
 
   const daysOfWeek = [
     "Sunday",
@@ -75,10 +62,13 @@ const Schedule = () => {
         { headers: { authorization: cookies.access_token } }
       );
       setSchedule(response.data);
-      console.log(response.data);
     } catch (error) {
       console.error(error);
     }
+  };
+
+  const saveSchedule = async () => {
+    console.log("schedule saved");
   };
 
   // get current day's workout to display
@@ -92,6 +82,9 @@ const Schedule = () => {
 
   return (
     <div className="pt-[100px] m-auto w-[800px]">
+      <button className="btn btn-secondary flex mx-auto" onClick={saveSchedule}>
+        Save
+      </button>
       {daysOfWeek.map((day, index) => (
         <div
           className={

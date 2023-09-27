@@ -29,7 +29,6 @@ router.get(
   "/schedule/:userID",
   verifyToken,
   async (req: Request, res: Response) => {
-    console.log("getting schedule");
     try {
       const response = await UserModel.findById(req.params.userID);
       if (!response) {
@@ -47,29 +46,17 @@ router.get(
   }
 );
 
-// add workout to week by workoutID and index
-router.put("/:userID", verifyToken, async (req: Request, res: Response) => {
-  const { workoutID, index } = req.body;
-  try {
-    const user = await UserModel.findById(req.params.userID);
-    if (!user) {
-      res.json({ message: "User does not exist" });
-      return;
+// update schedule by userID
+router.put(
+  "/schedule/:userID",
+  verifyToken,
+  async (req: Request, res: Response) => {
+    try {
+    } catch (error) {
+      res.json({ message: error });
     }
-    const workout = await WorkoutModel.findById(workoutID);
-    if (!workout) {
-      res.json({ message: "Workout does not exist" });
-      return;
-    }
-
-    if (user) {
-      user.schedule[index] = workout;
-      await user.save();
-    }
-  } catch (error) {
-    res.json({ message: error });
   }
-});
+);
 
 // delete workout by ID
 router.delete(
