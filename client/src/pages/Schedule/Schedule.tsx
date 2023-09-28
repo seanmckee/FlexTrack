@@ -3,6 +3,11 @@ import { Workout } from "../../types/types";
 import axios from "axios";
 import { useCookies } from "react-cookie";
 
+interface IDay {
+  isRestDay: boolean;
+  workout: Workout | null;
+}
+
 const Schedule = () => {
   const [cookies] = useCookies(["access_token"]);
   const userID = window.localStorage.getItem("userID");
@@ -29,15 +34,23 @@ const Schedule = () => {
     false,
   ]);
 
-  const [schedule, setSchedule] = useState<string[]>([]);
+  const [schedule, setSchedule] = useState<IDay[]>([
+    { isRestDay: true, workout: null },
+    { isRestDay: true, workout: null },
+    { isRestDay: true, workout: null },
+    { isRestDay: true, workout: null },
+    { isRestDay: true, workout: null },
+    { isRestDay: true, workout: null },
+    { isRestDay: true, workout: null },
+  ]);
 
   const [workouts, setWorkouts] = useState<Workout[]>([]);
 
   const changeIsRestDay = (index: number) => {
-    const newIsRestDay = [...isRestDay];
-    newIsRestDay[index] = !newIsRestDay[index];
-    setIsRestDay(newIsRestDay);
-    console.log(isRestDay);
+    const newSchedule = [...schedule];
+    newSchedule[index].isRestDay = !newSchedule[index].isRestDay;
+    setSchedule(newSchedule);
+    console.log(schedule);
   };
 
   // fetch all user's workouts from db
@@ -62,6 +75,7 @@ const Schedule = () => {
         { headers: { authorization: cookies.access_token } }
       );
       setSchedule(response.data);
+      console.log(schedule);
     } catch (error) {
       console.error(error);
     }
@@ -79,6 +93,12 @@ const Schedule = () => {
     fetchWorkouts();
     fetchSchedule();
   }, []);
+
+  function onOptionChange(index: number, workoutIndex: number): void {
+    const newSchedule = [...schedule];
+    newSchedule[index].workout = workouts[workoutIndex];
+    setSchedule(newSchedule);
+  }
 
   return (
     <div className="pt-[100px] m-auto w-[800px]">
@@ -101,14 +121,16 @@ const Schedule = () => {
                 <span className="label-text mx-2">Rest Day</span>
                 <input
                   type="checkbox"
-                  checked={isRestDay[index]}
+                  checked={schedule[index]?.isRestDay}
                   onChange={() => changeIsRestDay(index)}
                   className="checkbox checkbox-secondary checkbox-sm"
                 />
               </label>
               <div className="relative max-w-sm z-0">
                 <select
-                  disabled={isRestDay[index]}
+                  disabled={schedule[index]?.isRestDay}
+                  // value={schedule[index]?.workout?.name}
+                  // onChange={() => }
                   className="btn btn-neutral w-full h-full p-2.5 border rounded-md outline-none appearance-none text-center bg-inherit"
                 >
                   {workouts.length === 0 ? (
@@ -117,14 +139,24 @@ const Schedule = () => {
                     </option>
                   ) : (
                     workouts.map((workout, workoutIndex) => (
-                      <option key={workoutIndex} className="bg-inherit p-5">
-                        {isRestDay[index] ? "Rest Day" : workout.name}
+                      <option
+                        key={workoutIndex}
+                        className="bg-inherit p-5"
+                        value={
+                          schedule[index]?.isRestDay ? "Rest Day" : workout.name
+                        }
+                        onChange={() => onOptionChange(index, workoutIndex)}
+                      >
+                        {schedule[index]?.isRestDay ? "Rest Day" : workout.name}
                       </option>
                     ))
                   )}
                 </select>
               </div>
-              <button className="btn btn-outline btn-secondary mx-2 rounded-smd">
+              <button
+                disabled={schedule[index].isRestDay}
+                className="btn btn-outline btn-secondary mx-2 rounded-smd"
+              >
                 View
               </button>
             </div>

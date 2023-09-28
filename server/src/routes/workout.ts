@@ -37,9 +37,7 @@ router.get(
       if (!response?.schedule) {
         res.json({ message: "User has no schedule" });
       }
-      const schedule = await WorkoutModel.find({ _id: response?.schedule });
-
-      res.json(schedule);
+      res.json(response?.schedule);
     } catch (error) {
       res.json({ message: error });
     }

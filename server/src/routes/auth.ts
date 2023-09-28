@@ -32,7 +32,15 @@ router.post("/register", async (req: Request, res: Response) => {
     goalWeight: 0,
     goalCalories: 0,
     goalProtein: 0,
-    schedule: ["rest", "rest", "rest", "rest", "rest", "rest", "rest"],
+    schedule: [
+      { isRestDay: true, workout: null },
+      { isRestDay: true, workout: null },
+      { isRestDay: true, workout: null },
+      { isRestDay: true, workout: null },
+      { isRestDay: true, workout: null },
+      { isRestDay: true, workout: null },
+      { isRestDay: true, workout: null },
+    ],
   });
   await newUser.save();
   res.json({ message: "User Registered Successfully" });

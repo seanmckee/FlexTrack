@@ -1,6 +1,21 @@
 import mongoose, { Schema, Document, Model } from "mongoose";
 import { IWorkout } from "./Workouts";
 
+interface ISchedule {
+  sunday: IDay;
+  monday: IDay;
+  tuesday: IDay;
+  wednesday: IDay;
+  thursday: IDay;
+  friday: IDay;
+  saturday: IDay;
+}
+
+interface IDay extends Document {
+  isRestDay: boolean;
+  workout: IWorkout | null;
+}
+
 interface IUser extends Document {
   username: string;
   email: string;
@@ -14,7 +29,7 @@ interface IUser extends Document {
   currentCalories: number;
   currentProtein: number;
   workouts: IWorkout[];
-  schedule: (IWorkout | string)[];
+  schedule: [IDay];
 }
 
 const UserSchema: Schema<IUser> = new Schema({
@@ -30,7 +45,7 @@ const UserSchema: Schema<IUser> = new Schema({
   currentCalories: { type: Number, required: false, default: 0 },
   currentProtein: { type: Number, required: false, default: 0 },
   workouts: [{ type: Schema.Types.ObjectId, ref: "Workout" }],
-  schedule: [{ type: mongoose.Schema.Types.Mixed, required: true }],
+  schedule: [{ type: Schema.Types.Mixed, required: true }],
 });
 
 export const UserModel: Model<IUser> = mongoose.model<IUser>(
