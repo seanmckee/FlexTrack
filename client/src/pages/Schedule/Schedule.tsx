@@ -48,10 +48,18 @@ const Schedule = () => {
 
   const changeIsRestDay = (index: number) => {
     const newSchedule = [...schedule];
+    if (!newSchedule[index].isRestDay) newSchedule[index].workout = null;
     newSchedule[index].isRestDay = !newSchedule[index].isRestDay;
     setSchedule(newSchedule);
     console.log(schedule);
   };
+
+  function handleSelectChange(index: number, newWorkout: Workout) {
+    const newSchedule = [...schedule];
+    newSchedule[index].workout = newWorkout;
+    setSchedule(newSchedule);
+    console.log(schedule);
+  }
 
   // fetch all user's workouts from db
   const fetchWorkouts = async () => {
@@ -81,8 +89,17 @@ const Schedule = () => {
     }
   };
 
+  // update schedule in db
   const saveSchedule = async () => {
-    console.log("schedule saved");
+    try {
+      await axios.put(
+        `http://localhost:3000/workout/schedule/${userID}`,
+        { schedule },
+        { headers: { authorization: cookies.access_token } }
+      );
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   // get current day's workout to display
@@ -93,12 +110,6 @@ const Schedule = () => {
     fetchWorkouts();
     fetchSchedule();
   }, []);
-
-  function onOptionChange(index: number, workoutIndex: number): void {
-    const newSchedule = [...schedule];
-    newSchedule[index].workout = workouts[workoutIndex];
-    setSchedule(newSchedule);
-  }
 
   return (
     <div className="pt-[100px] m-auto w-[800px]">
@@ -131,6 +142,11 @@ const Schedule = () => {
                   disabled={schedule[index]?.isRestDay}
                   // value={schedule[index]?.workout?.name}
                   // onChange={() => }
+
+                  value={schedule[index]?.workout?.name}
+                  onChange={(e) =>
+                    handleSelectChange(index, workouts[e.target.selectedIndex])
+                  }
                   className="btn btn-neutral w-full h-full p-2.5 border rounded-md outline-none appearance-none text-center bg-inherit"
                 >
                   {workouts.length === 0 ? (
@@ -145,7 +161,7 @@ const Schedule = () => {
                         value={
                           schedule[index]?.isRestDay ? "Rest Day" : workout.name
                         }
-                        onChange={() => onOptionChange(index, workoutIndex)}
+                        // onChange={() => onOptionChange(index, workoutIndex)}
                       >
                         {schedule[index]?.isRestDay ? "Rest Day" : workout.name}
                       </option>

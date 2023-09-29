@@ -50,6 +50,19 @@ router.put(
   verifyToken,
   async (req: Request, res: Response) => {
     try {
+      const response = await UserModel.findById(req.params.userID);
+      if (!response) {
+        res.json({ message: "User does not exist" });
+        return;
+      }
+      if (!response?.schedule) {
+        res.json({ message: "User has no schedule" });
+        return;
+      }
+      const { schedule } = req.body;
+      response.schedule = schedule;
+      await response.save();
+      res.json({ message: "Schedule Updated Successfully" });
     } catch (error) {
       res.json({ message: error });
     }
