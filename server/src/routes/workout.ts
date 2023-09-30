@@ -6,6 +6,23 @@ import { WorkoutModel, ExerciseModel } from "../models/Workouts";
 
 const router = express.Router();
 
+// get workout by ID
+router.get(
+  "/day/:workoutID",
+  verifyToken,
+  async (req: Request, res: Response) => {
+    try {
+      const workout = await WorkoutModel.findById(req.params.workoutID);
+      if (!workout) {
+        return res.json({ message: "Workout does not exist" });
+      }
+      res.json(workout);
+    } catch (error) {
+      res.json({ message: error });
+    }
+  }
+);
+
 // get all user's workouts by userID
 router.get("/:userID", verifyToken, async (req: Request, res: Response) => {
   try {
