@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Workout } from "../../types/types";
 import axios from "axios";
 import { useCookies } from "react-cookie";
+import { Link } from "react-router-dom";
 
 interface IDay {
   isRestDay: boolean;
@@ -169,12 +170,23 @@ const Schedule = () => {
                   )}
                 </select>
               </div>
-              <button
-                disabled={schedule[index].isRestDay}
-                className="btn btn-outline btn-secondary mx-2 rounded-smd"
-              >
-                View
-              </button>
+              {schedule[index].isRestDay ? (
+                <button
+                  disabled={schedule[index].isRestDay}
+                  className="btn btn-outline btn-secondary mx-2"
+                >
+                  View
+                </button>
+              ) : (
+                <Link to={`/workout/${schedule[index].workout?._id}`}>
+                  <button
+                    disabled={schedule[index].isRestDay}
+                    className="btn btn-outline btn-secondary mx-2"
+                  >
+                    View
+                  </button>
+                </Link>
+              )}
             </div>
           </div>
         </div>

@@ -8,6 +8,8 @@ import Profile from "./pages/Profile/Profile";
 import Diet from "./pages/Diet/Diet";
 import Workouts from "./pages/Workouts/Workouts";
 import Schedule from "./pages/Schedule/Schedule";
+import ViewWorkout from "./pages/Workouts/ViewWorkout";
+import { Workout } from "./types/types";
 
 function App() {
   return (
@@ -20,6 +22,7 @@ function App() {
         <Route path="/diet" element={<Diet />} />
         <Route path="/schedule" element={<Schedule />} />
         <Route path="/workouts" element={<Workouts />} />
+        <Route path="/workout/:id" element={<ViewWorkout />} />
       </Routes>
     </DndProvider>
   );
