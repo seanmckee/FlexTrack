@@ -2,7 +2,15 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { useCookies } from "react-cookie";
 import { BsFillTrashFill } from "react-icons/bs";
-import { DndContext, closestCenter } from "@dnd-kit/core";
+import {
+  DndContext,
+  KeyboardSensor,
+  MouseSensor,
+  TouchSensor,
+  closestCenter,
+  useSensor,
+  useSensors,
+} from "@dnd-kit/core";
 import { CSS } from "@dnd-kit/utilities";
 import {
   SortableContext,
@@ -151,6 +159,12 @@ const Workouts = () => {
     fetchWorkouts();
   }, [triggerEffect, saveWorkout]);
 
+  const sensors = useSensors(
+    useSensor(KeyboardSensor),
+    useSensor(TouchSensor),
+    useSensor(MouseSensor)
+  );
+
   return (
     <div className="pt-[75px] p-6">
       <button onClick={setFormVisible} className="btn btn-secondary">
@@ -165,7 +179,11 @@ const Workouts = () => {
           addExercise={addExercise}
         />
         <div>
-          <DndContext collisionDetection={closestCenter} onDragEnd={onDragEnd}>
+          <DndContext
+            sensors={sensors}
+            collisionDetection={closestCenter}
+            onDragEnd={onDragEnd}
+          >
             <SortableContext
               items={exercises}
               strategy={verticalListSortingStrategy}
