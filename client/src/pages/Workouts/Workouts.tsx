@@ -149,7 +149,7 @@ const Workouts = () => {
 
   useEffect(() => {
     fetchWorkouts();
-  }, [triggerEffect]);
+  }, [triggerEffect, saveWorkout]);
 
   return (
     <div className="pt-[75px] p-6">
@@ -192,18 +192,21 @@ const Workouts = () => {
       </div>
       {workouts.map((workout, index) => {
         return (
-          <div className="my-5 border-2 rounded-md p-5" key={workout._id}>
-            <h1 className="text-xl">{workout.name}</h1>
-            <button
-              onClick={() => deleteWorkout(index, workout._id)}
-              className="ml-2 mt-1 px-3 btn btn-secondary rounded-md"
-            >
-              <BsFillTrashFill size={16} />
-            </button>
+          <div className=" my-5 rounded-md p-5" key={workout._id}>
+            <div className="flex items-center m-auto justify-between w-[500px]">
+              <h1 className="text-xl">{workout.name.toUpperCase()}</h1>
+              <button
+                onClick={() => deleteWorkout(index, workout._id)}
+                className="ml-2 mt-1 px-3 bg-pink-500 p-3 rounded-md"
+              >
+                <BsFillTrashFill size={16} />
+              </button>
+            </div>
+
             {workout.exercises.map((exercise) => {
               return (
-                <div className="flex" key={exercise.id}>
-                  <h1 className="p-2 border my-2 rounded-md w-[500px] flex justify-between">
+                <div className="flex flex-col items-center" key={exercise.id}>
+                  <h1 className="p-4 border my-2 rounded-md w-[500px] flex justify-between">
                     <div>
                       <span className="">{exercise.name}</span>
                     </div>

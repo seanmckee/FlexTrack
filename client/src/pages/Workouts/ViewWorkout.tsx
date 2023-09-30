@@ -26,7 +26,30 @@ const ViewWorkout = () => {
     fetchWorkout();
   }, []);
 
-  return <div className="pt-[100px] m-auto w-[800px]">{String(workout)}</div>;
+  return (
+    <div className="pt-[100px] m-auto w-[800px]">
+      <h1 className="text-3xl font-bold text-center mb-5">{workout?.name}</h1>
+      <div className="flex flex-col items-center">
+        {workout
+          ? workout.exercises.map((exercise) => {
+              return (
+                <div className="flex" key={exercise.id}>
+                  <h1 className="p-2 border my-2 rounded-md w-[500px] flex justify-between">
+                    <div>
+                      <span className="">{exercise.name}</span>
+                    </div>
+
+                    <span>
+                      {exercise.sets} sets x {exercise.reps} reps
+                    </span>
+                  </h1>
+                </div>
+              );
+            })
+          : null}
+      </div>
+    </div>
+  );
 };
 
 export default ViewWorkout;
