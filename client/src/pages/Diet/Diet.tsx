@@ -52,7 +52,7 @@ const Diet = () => {
         { calories: signedCalories },
         { headers: { authorization: cookies.access_token } }
       );
-      setCalories(calories + signedCalories);
+      // setCalories(calories + signedCalories);
     } catch (error) {
       console.error(error);
     }
@@ -115,15 +115,15 @@ const Diet = () => {
   }, [user]);
 
   return (
-    <div className="pt-[75px] p-6 flex flex-col">
+    <div className="pt-[75px] p-6 flex flex-col items-center">
       {Number.isNaN(proteinPercentage) || Number.isNaN(caloriePercentage) ? (
         <h1 className="mb-5">Please fill out your profile information</h1>
       ) : (
         ""
       )}
-      <div className="flex">
+      <div className="md:flex">
         <CircularProgressbar
-          className="w-[300px] "
+          className="w-[300px] mr-10 mb-2"
           value={caloriePercentage}
           text={
             Number.isNaN(caloriePercentage)
@@ -132,35 +132,37 @@ const Diet = () => {
           }
         />
         <div className="flex flex-col">
-          <h3 className="m-5 text-xl">
+          <h3 className="m-5 text-xl text-center">
             Current Calories: {user?.currentCalories} / {user?.goalCalories}
           </h3>
-          <input
-            type="text"
-            placeholder="Type here"
-            className="input input-bordered w-full max-w-xs"
-            value={calories === 0 ? "" : calories}
-            onChange={(e) => handleNumberedChange(e, "currentCalories")}
-          />
-          <div className="flex">
-            <button
-              className="btn btn-secondary grow m-1"
-              onClick={() => handleCalorieChange("+")}
-            >
-              + Cal
-            </button>
-            <button
-              className="btn btn-secondary grow m-1"
-              onClick={() => handleCalorieChange("-")}
-            >
-              - Cal
-            </button>
+          <div className="flex flex-col max-w-xs mb-10">
+            <input
+              type="text"
+              placeholder="Type here"
+              className="input input-bordered w-full max-w-xs mb-1"
+              value={calories === 0 ? "" : calories}
+              onChange={(e) => handleNumberedChange(e, "currentCalories")}
+            />
+            <div className="flex">
+              <button
+                className="btn btn-secondary m-1 grow"
+                onClick={() => handleCalorieChange("+")}
+              >
+                + Cal
+              </button>
+              <button
+                className="btn btn-secondary m-1 grow"
+                onClick={() => handleCalorieChange("-")}
+              >
+                - Cal
+              </button>
+            </div>
           </div>
         </div>
       </div>
-      <div className="flex">
+      <div className="md:flex">
         <CircularProgressbar
-          className="w-[300px] "
+          className="w-[300px] mr-10 mb-2"
           value={proteinPercentage}
           text={
             Number.isNaN(proteinPercentage)
@@ -169,29 +171,31 @@ const Diet = () => {
           }
         />
         <div>
-          <h3 className="m-5 text-xl">
+          <h3 className="m-5 text-xl text-center">
             Current Protein: {user?.currentProtein} / {user?.goalProtein}
           </h3>
-          <input
-            type="text"
-            placeholder="Type here"
-            className="input input-bordered w-full max-w-xs"
-            value={protein === 0 ? "" : protein}
-            onChange={(e) => handleNumberedChange(e, "currentProtein")}
-          />
-          <div className="flex">
-            <button
-              className="btn btn-secondary grow m-1"
-              onClick={() => handleProteinChange("+")}
-            >
-              + Protein
-            </button>
-            <button
-              className="btn btn-secondary grow m-1"
-              onClick={() => handleProteinChange("-")}
-            >
-              - Protein
-            </button>
+          <div className="flex flex-col max-w-xs mb-10">
+            <input
+              type="text"
+              placeholder="Type here"
+              className="input input-bordered w-full max-w-xs mb-1"
+              value={protein === 0 ? "" : protein}
+              onChange={(e) => handleNumberedChange(e, "currentProtein")}
+            />
+            <div className="flex">
+              <button
+                className="btn btn-secondary grow m-1"
+                onClick={() => handleProteinChange("+")}
+              >
+                + Protein
+              </button>
+              <button
+                className="btn btn-secondary grow m-1"
+                onClick={() => handleProteinChange("-")}
+              >
+                - Protein
+              </button>
+            </div>
           </div>
         </div>
       </div>

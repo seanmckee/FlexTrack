@@ -27,14 +27,14 @@ const ViewWorkout = () => {
   }, []);
 
   return (
-    <div className="pt-[100px] m-auto w-[800px]">
+    <div className="pt-[100px] max-w-[800px]">
       <h1 className="text-3xl font-bold text-center mb-5">{workout?.name}</h1>
-      <div className="flex flex-col items-center">
+      <div className="flex flex-col">
         {workout
           ? workout.exercises.map((exercise) => {
               return (
                 <div className="flex" key={exercise.id}>
-                  <h1 className="p-2 border my-2 rounded-md w-[500px] flex justify-between">
+                  <h1 className="p-2 border my-2 rounded-md w-[90%] flex justify-between m-auto">
                     <div>
                       <span className="">{exercise.name}</span>
                     </div>

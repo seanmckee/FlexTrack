@@ -36,7 +36,7 @@ const SortableExercise = ({ exercise }: { exercise: Exercise }) => {
       {...attributes}
       {...listeners}
       style={style}
-      className="p-2 border my-2 rounded-md w-[500px] flex justify-between"
+      className="p-2 border my-2 rounded-md max-w-[500px] flex justify-between"
     >
       <span className="">{exercise.name}</span>
       <span>
@@ -166,12 +166,12 @@ const Workouts = () => {
   );
 
   return (
-    <div className="pt-[75px] p-6">
-      <button onClick={setFormVisible} className="btn btn-secondary">
+    <div className="pt-[75px] p-6 flex flex-col items-center">
+      <button onClick={setFormVisible} className="btn btn-secondary ">
         {showForm ? "Close Form" : "New Workout"}
       </button>
       <div className={showForm ? "" : "hidden"}>
-        <h1 className="text-xl mt-5">Create New Workout</h1>
+        <h1 className="text-xl mt-5 text-center">Create New Workout</h1>
         {/* form used to go here */}
         <NewWorkoutForm
           formData={formData}
@@ -203,7 +203,10 @@ const Workouts = () => {
               })}
             </SortableContext>
           </DndContext>
-          <button onClick={saveWorkout} className="btn btn-secondary mt-10">
+          <button
+            onClick={saveWorkout}
+            className="btn btn-secondary mt-10 flex mx-auto"
+          >
             Save Workout
           </button>
         </div>
@@ -211,7 +214,7 @@ const Workouts = () => {
       {workouts.map((workout, index) => {
         return (
           <div className=" my-5 rounded-md p-5" key={workout._id}>
-            <div className="flex items-center m-auto justify-between w-[500px]">
+            <div className="flex items-center m-auto justify-between min-w-[300px] max-w-[500px]">
               <h1 className="text-xl">{workout.name.toUpperCase()}</h1>
               <button
                 onClick={() => deleteWorkout(index, workout._id)}
@@ -224,7 +227,7 @@ const Workouts = () => {
             {workout.exercises.map((exercise) => {
               return (
                 <div className="flex flex-col items-center" key={exercise.id}>
-                  <h1 className="p-4 border my-2 rounded-md w-[500px] flex justify-between">
+                  <h1 className="p-4 border my-2 rounded-md min-w-[300px] max-w-[700px] flex justify-between">
                     <div>
                       <span className="">{exercise.name}</span>
                     </div>

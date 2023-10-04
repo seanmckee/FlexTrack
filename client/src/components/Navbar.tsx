@@ -1,10 +1,15 @@
 import { Link } from "react-router-dom";
 import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 const Navbar = () => {
   const [_, setCookies] = useCookies(["access_token"]);
   const navigate = useNavigate();
+  const [nav, setNav] = useState(false);
+  const handleClick = () => {
+    setNav(!nav);
+  };
 
   const logout = () => {
     setCookies("access_token", "");
@@ -24,6 +29,8 @@ const Navbar = () => {
           </div>
         </Link>
       </div>
+
+      {/* Menu */}
       <div className="flex-none">
         <ul className="menu menu-horizontal px-1">
           {window.localStorage.getItem("userID") ? (
@@ -51,6 +58,42 @@ const Navbar = () => {
           )}
         </ul>
       </div>
+
+      {/* mobile menu */}
+      <ul
+        className={
+          !nav
+            ? "hidden"
+            : "absolute top-0 left-0 w-full h-screen bg-[#0a192f] flex flex-col justify-center items-center"
+        }
+      >
+        <li className="py-6 text-4xl">
+          <Link onClick={handleClick} to="/schedule">
+            Schedule
+          </Link>
+        </li>
+
+        <li className="py-6 text-4xl">
+          <Link onClick={handleClick} to="/workouts">
+            Workouts
+          </Link>
+        </li>
+        <li className="py-6 text-4xl">
+          <Link onClick={handleClick} to="/diet">
+            Diet
+          </Link>
+        </li>
+        <li className="py-6 text-4xl">
+          <Link onClick={handleClick} to="/profile">
+            Profile
+          </Link>
+        </li>
+        <li className="py-6 text-4xl">
+          <Link onClick={handleClick} to="">
+            Sign Out
+          </Link>
+        </li>
+      </ul>
     </div>
   );
 };

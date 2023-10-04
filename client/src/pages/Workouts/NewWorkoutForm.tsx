@@ -14,7 +14,7 @@ const NewWorkoutForm: React.FC<ChildProps> = ({
 }) => {
   return (
     <div>
-      <form>
+      <form className="flex flex-col items-center">
         <label className="label">
           <span className="label-text">Workout Name</span>
         </label>
@@ -28,7 +28,7 @@ const NewWorkoutForm: React.FC<ChildProps> = ({
           }
         />
 
-        <div className="flex">
+        <div className="border p-4 rounded-lg mt-4">
           <div className="my-1">
             <label className="label">
               <span className="label-text">Name</span>
@@ -81,7 +81,8 @@ const NewWorkoutForm: React.FC<ChildProps> = ({
               }
             />
           </div>
-          <div>
+
+          <div className="flex justify-center">
             <button onClick={addExercise} className="btn btn-secondary mt-10">
               Add
             </button>

@@ -113,7 +113,7 @@ const Schedule = () => {
   }, []);
 
   return (
-    <div className="pt-[100px] m-auto w-[800px]">
+    <div className="pt-[100px] m-auto max-w-[800px]">
       <button className="btn btn-secondary flex mx-auto" onClick={saveSchedule}>
         Save
       </button>
