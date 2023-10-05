@@ -1,7 +1,5 @@
 import axios from "axios";
 import { useState } from "react";
-import { useCookies } from "react-cookie";
-import { useNavigate } from "react-router-dom";
 
 interface SignUpProps {
   toggleHasAccount: () => void;
@@ -12,8 +10,6 @@ const Signup: React.FC<SignUpProps> = ({ toggleHasAccount }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  const [_, setCookies] = useCookies(["access_token"]);
-  const navigate = useNavigate();
 
   const signUp = async () => {
     if (password !== confirmPassword) {

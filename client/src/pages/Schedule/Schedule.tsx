@@ -25,16 +25,6 @@ const Schedule = () => {
   const currentDate = new Date();
   const currentDayIndex = currentDate.getDay();
 
-  const [isRestDay, setIsRestDay] = useState<boolean[]>([
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-    false,
-  ]);
-
   const [schedule, setSchedule] = useState<IDay[]>([
     { isRestDay: true, workout: null },
     { isRestDay: true, workout: null },

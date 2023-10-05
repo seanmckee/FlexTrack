@@ -9,7 +9,6 @@ import Diet from "./pages/Diet/Diet";
 import Workouts from "./pages/Workouts/Workouts";
 import Schedule from "./pages/Schedule/Schedule";
 import ViewWorkout from "./pages/Workouts/ViewWorkout";
-import { Workout } from "./types/types";
 
 function App() {
   return (
