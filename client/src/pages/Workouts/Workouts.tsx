@@ -88,7 +88,7 @@ const Workouts = () => {
 
     try {
       const response = await axios.post(
-        `http://localhost:3000/workout/${userID}`,
+        `https://flextrack-20fr.onrender.com/workout/${userID}`,
         newWorkout,
         { headers: { authorization: cookies.access_token } }
       );
@@ -117,7 +117,7 @@ const Workouts = () => {
     setWorkouts(newWorkouts);
 
     try {
-      await axios.delete(`http://localhost:3000/workout/${id}`, {
+      await axios.delete(`https://flextrack-20fr.onrender.com/workout/${id}`, {
         headers: { authorization: cookies.access_token },
       });
     } catch (error) {
@@ -146,7 +146,7 @@ const Workouts = () => {
   const fetchWorkouts = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:3000/workout/${userID}`,
+        `https://flextrack-20fr.onrender.com/workout/${userID}`,
         { headers: { authorization: cookies.access_token } }
       );
       setWorkouts(response.data);

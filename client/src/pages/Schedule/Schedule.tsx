@@ -56,7 +56,7 @@ const Schedule = () => {
   const fetchWorkouts = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:3000/workout/${userID}`,
+        `https://flextrack-20fr.onrender.com/workout/${userID}`,
         { headers: { authorization: cookies.access_token } }
       );
 
@@ -70,7 +70,7 @@ const Schedule = () => {
   const fetchSchedule = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:3000/workout/schedule/${userID}`,
+        `https://flextrack-20fr.onrender.com/workout/schedule/${userID}`,
         { headers: { authorization: cookies.access_token } }
       );
       setSchedule(response.data);
@@ -84,7 +84,7 @@ const Schedule = () => {
   const saveSchedule = async () => {
     try {
       await axios.put(
-        `http://localhost:3000/workout/schedule/${userID}`,
+        `https://flextrack-20fr.onrender.com/workout/schedule/${userID}`,
         { schedule },
         { headers: { authorization: cookies.access_token } }
       );

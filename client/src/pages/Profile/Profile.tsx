@@ -29,7 +29,7 @@ const Profile = () => {
     e.preventDefault();
     try {
       await axios.put(
-        `http://localhost:3000/profile/${userID}`,
+        `https://flextrack-20fr.onrender.com/profile/${userID}`,
         {
           height: user.height,
           weight: user.weight,
@@ -71,7 +71,7 @@ const Profile = () => {
   const fetchProfile = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:3000/profile/${userID}`,
+        `https://flextrack-20fr.onrender.com/profile/${userID}`,
         { headers: { authorization: cookies.access_token } }
       );
       setUser(response.data);

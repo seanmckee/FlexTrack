@@ -19,7 +19,7 @@ const Signup: React.FC<SignUpProps> = ({ toggleHasAccount }) => {
       return;
     } else {
       try {
-        await axios.post("http://localhost:3000/auth/register", {
+        await axios.post("https://flextrack-20fr.onrender.com/auth/register", {
           email,
           username,
           password,

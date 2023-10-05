@@ -12,9 +12,12 @@ const ViewWorkout = () => {
   // fetch workout by id
   const fetchWorkout = async () => {
     try {
-      const res = await axios.get(`http://localhost:3000/workout/day/${id}`, {
-        headers: { authorization: cookies.access_token },
-      });
+      const res = await axios.get(
+        `https://flextrack-20fr.onrender.com/workout/day/${id}`,
+        {
+          headers: { authorization: cookies.access_token },
+        }
+      );
       setWorkout(res.data);
       console.log(workout);
     } catch (error) {

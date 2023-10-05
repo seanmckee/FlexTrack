@@ -15,10 +15,13 @@ const SignIn: React.FC<SignInProps> = ({ toggleHasAccount }) => {
 
   const signIn = async () => {
     try {
-      const response = await axios.post("http://localhost:3000/auth/login", {
-        email,
-        password,
-      });
+      const response = await axios.post(
+        "https://flextrack-20fr.onrender.com/auth/login",
+        {
+          email,
+          password,
+        }
+      );
       if (response.data.userID === undefined) {
         alert("Invalid Credentials");
         setEmail("");

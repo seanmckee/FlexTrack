@@ -32,7 +32,7 @@ const Diet = () => {
   const handleReset = async () => {
     try {
       const response = await axios.put(
-        `http://localhost:3000/profile/reset/${userID}`,
+        `https://flextrack-20fr.onrender.com/profile/reset/${userID}`,
         {},
         {
           headers: { authorization: cookies.access_token },
@@ -48,7 +48,7 @@ const Diet = () => {
     const signedCalories = sign === "-" ? -calories : calories;
     try {
       axios.put(
-        `http://localhost:3000/profile/calories/${userID}`,
+        `https://flextrack-20fr.onrender.com/profile/calories/${userID}`,
         { calories: signedCalories },
         { headers: { authorization: cookies.access_token } }
       );
@@ -62,7 +62,7 @@ const Diet = () => {
     const signedProtein = sign === "-" ? -protein : protein;
     try {
       axios.put(
-        `http://localhost:3000/profile/protein/${userID}`,
+        `https://flextrack-20fr.onrender.com/profile/protein/${userID}`,
         { protein: signedProtein },
         { headers: { authorization: cookies.access_token } }
       );
@@ -91,7 +91,7 @@ const Diet = () => {
   const fetchProfile = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:3000/profile/${userID}`,
+        `https://flextrack-20fr.onrender.com/profile/${userID}`,
         { headers: { authorization: cookies.access_token } }
       );
       setUser(response.data);
