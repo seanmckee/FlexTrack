@@ -127,10 +127,10 @@ const Schedule = () => {
           key={index}
         >
           <div className="flex justify-between items-center">
-            <p className="text-2xl">{day}</p>
+            <p className="sm:text-2xl font-semibold">{day}</p>
             <div className="flex">
               <label className="cursor-pointer label mx-2">
-                <span className="label-text mx-2">Rest Day</span>
+                <span className="label-text mx-2">Rest</span>
                 <input
                   type="checkbox"
                   checked={schedule[index]?.isRestDay}
