@@ -99,8 +99,8 @@ const Profile = () => {
   }, [height]);
 
   return (
-    <div className="pt-[75px] p-6 flex flex-col items-center">
-      <form onSubmit={onSubmit} className="form-control min-w-[599px]">
+    <div className="pt-[75px] p-6 flex flex-col max-w-[600px] mx-auto">
+      <form onSubmit={onSubmit} className="form-control">
         <h1>View or Edit Information Here</h1>
         <div className="">
           <div className="flex flex-col">
@@ -110,7 +110,7 @@ const Profile = () => {
             <input
               type="text"
               placeholder={"Enter Username"}
-              className="input input-bordered w-full"
+              className="input input-bordered"
               value={user?.username}
               onChange={(e) => setUser({ ...user, username: e.target.value })}
               readOnly
@@ -125,7 +125,7 @@ const Profile = () => {
             type="text"
             inputMode="numeric"
             placeholder={"Enter Weight (lbs)"}
-            className="input input-bordered w-full max-w-xs"
+            className="input input-bordered"
             value={user?.weight === 0 ? "0" : String(user?.weight)}
             onChange={(e) => handleNumberedChange(e, "weight")}
           />
@@ -138,7 +138,7 @@ const Profile = () => {
             type="text"
             inputMode="numeric"
             placeholder={"Enter Age"}
-            className="input input-bordered w-full max-w-xs"
+            className="input input-bordered"
             value={user?.age === 0 ? "" : String(user?.age)}
             onChange={(e) => handleNumberedChange(e, "age")}
           />
@@ -152,7 +152,7 @@ const Profile = () => {
             type="text"
             inputMode="numeric"
             placeholder={"Enter Calorie Goal"}
-            className="input input-bordered w-full max-w-xs"
+            className="input input-bordered"
             value={user?.goalCalories === 0 ? "" : String(user?.goalCalories)}
             onChange={(e) => handleNumberedChange(e, "goalCalories")}
           />
@@ -166,7 +166,7 @@ const Profile = () => {
             type="text"
             inputMode="numeric"
             placeholder={"Enter Protein Goal"}
-            className="input input-bordered w-full max-w-xs"
+            className="input input-bordered"
             value={user?.goalProtein === 0 ? "" : String(user?.goalProtein)}
             onChange={(e) => handleNumberedChange(e, "goalProtein")}
           />
@@ -180,7 +180,7 @@ const Profile = () => {
             type="text"
             inputMode="numeric"
             placeholder={"Enter Weight Goal (lbs)"}
-            className="input input-bordered w-full max-w-xs"
+            className="input input-bordered"
             value={user?.goalWeight === 0 ? "" : String(user?.goalWeight)}
             onChange={(e) => handleNumberedChange(e, "goalWeight")}
           />
@@ -189,12 +189,12 @@ const Profile = () => {
           <label className="text-xl label">
             <span className="label-text">Height ([ft]/[in]): </span>
           </label>
-          <div>
+          <div className="flex justify-around gap-4">
             <input
               type="text"
               inputMode="numeric"
               placeholder={"Enter Height (ft)"}
-              className="input input-bordered w-[80px] max-w-xs mr-5"
+              className="input input-bordered w-full"
               value={height.feet === 0 ? "" : String(height.feet)}
               onChange={(e) => handleHeightChange(e, "feet")}
             />
@@ -203,14 +203,14 @@ const Profile = () => {
               type="text"
               inputMode="numeric"
               placeholder={"Enter Height (in)"}
-              className="input input-bordered w-[80px] max-w-xs"
+              className="input input-bordered w-full"
               value={height.inches === 0 ? "" : String(height.inches)}
               onChange={(e) => handleHeightChange(e, "inches")}
             />
           </div>
         </div>
 
-        <button type="submit" className="btn btn-secondary m-5">
+        <button type="submit" className="btn btn-secondary my-5">
           Update
         </button>
       </form>
