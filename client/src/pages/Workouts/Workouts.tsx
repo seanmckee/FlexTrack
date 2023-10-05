@@ -159,6 +159,12 @@ const Workouts = () => {
     fetchWorkouts();
   }, [triggerEffect, saveWorkout]);
 
+  useEffect(() => {
+    if (workouts.length < 1) {
+      setShowForm(true);
+    }
+  }, []);
+
   const sensors = useSensors(
     useSensor(KeyboardSensor),
     useSensor(TouchSensor),

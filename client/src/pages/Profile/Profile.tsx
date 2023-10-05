@@ -99,8 +99,8 @@ const Profile = () => {
   }, [height]);
 
   return (
-    <div className="pt-[75px] p-6">
-      <form onSubmit={onSubmit} className="form-control">
+    <div className="pt-[75px] p-6 flex flex-col items-center">
+      <form onSubmit={onSubmit} className="form-control min-w-[599px]">
         <h1>View or Edit Information Here</h1>
         <div className="">
           <div className="flex flex-col">
@@ -110,7 +110,7 @@ const Profile = () => {
             <input
               type="text"
               placeholder={"Enter Username"}
-              className="input input-bordered w-full max-w-xs"
+              className="input input-bordered w-full"
               value={user?.username}
               onChange={(e) => setUser({ ...user, username: e.target.value })}
               readOnly
