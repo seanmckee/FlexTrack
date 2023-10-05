@@ -2,6 +2,8 @@ import { Link } from "react-router-dom";
 import { useCookies } from "react-cookie";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
+import { RxHamburgerMenu } from "react-icons/rx";
+import { FaTimes } from "react-icons/fa";
 
 const Navbar = () => {
   const [_, setCookies] = useCookies(["access_token"]);
@@ -31,7 +33,7 @@ const Navbar = () => {
       </div>
 
       {/* Menu */}
-      <div className="flex-none">
+      <div className={"md:block hidden flex-none"}>
         <ul className="menu menu-horizontal px-1">
           {window.localStorage.getItem("userID") ? (
             <div className="flex">
@@ -59,12 +61,17 @@ const Navbar = () => {
         </ul>
       </div>
 
+      {/* hamburger menu */}
+      <div onClick={handleClick} className="flex-none md:hidden flex z-10">
+        {nav ? <FaTimes size={25} /> : <RxHamburgerMenu size={20} />}
+      </div>
+
       {/* mobile menu */}
       <ul
         className={
           !nav
             ? "hidden"
-            : "absolute top-0 left-0 w-full h-screen bg-[#0a192f] flex flex-col justify-center items-center"
+            : "absolute top-0 left-0 w-full h-screen bg-inherit flex flex-col justify-center items-center"
         }
       >
         <li className="py-6 text-4xl">
