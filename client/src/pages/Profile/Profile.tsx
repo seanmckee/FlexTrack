@@ -102,30 +102,38 @@ const Profile = () => {
     <div className="pt-[75px] p-6">
       <form onSubmit={onSubmit} className="form-control">
         <h1>View or Edit Information Here</h1>
-        <div className="sm:flex p-5">
-          <h1 className="text-xl mr-4 mt-2">Username: </h1>
-          <input
-            type="text"
-            placeholder={"Enter Username"}
-            className="input input-bordered w-full max-w-xs"
-            value={user?.username}
-            onChange={(e) => setUser({ ...user, username: e.target.value })}
-            readOnly
-          />
+        <div className="">
+          <div className="flex flex-col">
+            <label className="text-xl label">
+              <span className="label-text">Username: </span>
+            </label>
+            <input
+              type="text"
+              placeholder={"Enter Username"}
+              className="input input-bordered w-full max-w-xs"
+              value={user?.username}
+              onChange={(e) => setUser({ ...user, username: e.target.value })}
+              readOnly
+            />
+          </div>
         </div>
-        <div className="sm:flex p-5">
-          <h1 className="text-xl mr-4 mt-2">Weight: </h1>
+        <div className="flex flex-col">
+          <label className="text-xl label">
+            <span className="label-text">Weight: </span>
+          </label>
           <input
             type="text"
             inputMode="numeric"
             placeholder={"Enter Weight (lbs)"}
             className="input input-bordered w-full max-w-xs"
-            value={user?.weight === 0 ? "" : String(user?.weight)}
+            value={user?.weight === 0 ? "0" : String(user?.weight)}
             onChange={(e) => handleNumberedChange(e, "weight")}
           />
         </div>
-        <div className="sm:flex p-5">
-          <h1 className="text-xl mr-[50px] mt-2">Age: </h1>
+        <div className="flex flex-col">
+          <label className="text-xl label">
+            <span className="label-text">Age: </span>
+          </label>
           <input
             type="text"
             inputMode="numeric"
@@ -136,8 +144,10 @@ const Profile = () => {
           />
         </div>
 
-        <div className="sm:flex p-5">
-          <h1 className="text-xl mr-4 mt-2">Calorie Goal: </h1>
+        <div className="flex flex-col">
+          <label className="text-xl label">
+            <span className="label-text">Calorie Goal: </span>
+          </label>
           <input
             type="text"
             inputMode="numeric"
@@ -148,8 +158,10 @@ const Profile = () => {
           />
         </div>
 
-        <div className="sm:flex p-5">
-          <h1 className="text-xl mr-4 mt-2">Protein Goal: </h1>
+        <div className="flex flex-col">
+          <label className="text-xl label">
+            <span className="label-text">Protein Goal: </span>
+          </label>
           <input
             type="text"
             inputMode="numeric"
@@ -160,8 +172,10 @@ const Profile = () => {
           />
         </div>
 
-        <div className="sm:flex p-5">
-          <h1 className="text-xl mr-4 mt-2">Weight Goal: </h1>
+        <div className="flex flex-col">
+          <label className="text-xl label">
+            <span className="label-text">Weight Goal: </span>
+          </label>
           <input
             type="text"
             inputMode="numeric"
@@ -171,26 +185,29 @@ const Profile = () => {
             onChange={(e) => handleNumberedChange(e, "goalWeight")}
           />
         </div>
-        <div className="sm:flex p-5">
-          <h1 className="text-xl mr-4 mt-2">Height ([ft]/[in]): </h1>
+        <div className="flex flex-col">
+          <label className="text-xl label">
+            <span className="label-text">Height ([ft]/[in]): </span>
+          </label>
+          <div>
+            <input
+              type="text"
+              inputMode="numeric"
+              placeholder={"Enter Height (ft)"}
+              className="input input-bordered w-[80px] max-w-xs mr-5"
+              value={height.feet === 0 ? "" : String(height.feet)}
+              onChange={(e) => handleHeightChange(e, "feet")}
+            />
 
-          <input
-            type="text"
-            inputMode="numeric"
-            placeholder={"Enter Height (ft)"}
-            className="input input-bordered w-[80px] max-w-xs mr-5"
-            value={height.feet === 0 ? "" : String(height.feet)}
-            onChange={(e) => handleHeightChange(e, "feet")}
-          />
-
-          <input
-            type="text"
-            inputMode="numeric"
-            placeholder={"Enter Height (in)"}
-            className="input input-bordered w-[80px] max-w-xs"
-            value={height.inches === 0 ? "" : String(height.inches)}
-            onChange={(e) => handleHeightChange(e, "inches")}
-          />
+            <input
+              type="text"
+              inputMode="numeric"
+              placeholder={"Enter Height (in)"}
+              className="input input-bordered w-[80px] max-w-xs"
+              value={height.inches === 0 ? "" : String(height.inches)}
+              onChange={(e) => handleHeightChange(e, "inches")}
+            />
+          </div>
         </div>
 
         <button type="submit" className="btn btn-secondary m-5">

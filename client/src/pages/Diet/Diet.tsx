@@ -200,7 +200,7 @@ const Diet = () => {
         </div>
       </div>
       <button
-        className="btn btn-secondary mt-10 w-[50%] m-auto"
+        className="md:mt-10 btn btn-secondary w-full max-w-xs mr-4 text-center"
         onClick={handleReset}
       >
         Reset
