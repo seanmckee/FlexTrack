@@ -18,6 +18,12 @@ const Navbar = () => {
     window.localStorage.removeItem("userID");
     navigate("/");
   };
+  const logoutMobile = () => {
+    setCookies("access_token", "");
+    setNav(false);
+    window.localStorage.removeItem("userID");
+    navigate("/");
+  };
   return (
     <div className="navbar bg-base-100 fixed z-10">
       <div className="flex-1">
@@ -67,40 +73,56 @@ const Navbar = () => {
       </div>
 
       {/* mobile menu */}
-      <ul
-        className={
-          !nav
-            ? "hidden"
-            : "absolute top-0 left-0 w-full h-screen bg-inherit flex flex-col justify-center items-center"
-        }
-      >
-        <li className="py-6 text-4xl">
-          <Link onClick={handleClick} to="/schedule">
-            Schedule
-          </Link>
-        </li>
+      {window.localStorage.getItem("userID") ? (
+        <ul
+          className={
+            !nav
+              ? "hidden"
+              : "absolute top-0 left-0 w-full h-screen bg-inherit flex flex-col justify-center items-center"
+          }
+        >
+          <li className="py-6 text-4xl">
+            <Link onClick={handleClick} to="/schedule">
+              Schedule
+            </Link>
+          </li>
 
-        <li className="py-6 text-4xl">
-          <Link onClick={handleClick} to="/workouts">
-            Workouts
-          </Link>
-        </li>
-        <li className="py-6 text-4xl">
-          <Link onClick={handleClick} to="/diet">
-            Diet
-          </Link>
-        </li>
-        <li className="py-6 text-4xl">
-          <Link onClick={handleClick} to="/profile">
-            Profile
-          </Link>
-        </li>
-        <li className="py-6 text-4xl">
-          <Link onClick={handleClick} to="">
-            Sign Out
-          </Link>
-        </li>
-      </ul>
+          <li className="py-6 text-4xl">
+            <Link onClick={handleClick} to="/workouts">
+              Workouts
+            </Link>
+          </li>
+          <li className="py-6 text-4xl">
+            <Link onClick={handleClick} to="/diet">
+              Diet
+            </Link>
+          </li>
+          <li className="py-6 text-4xl">
+            <Link onClick={handleClick} to="/profile">
+              Profile
+            </Link>
+          </li>
+          <li className="py-6 text-4xl">
+            <Link onClick={logoutMobile} to="">
+              Sign Out
+            </Link>
+          </li>
+        </ul>
+      ) : (
+        <ul
+          className={
+            !nav
+              ? "hidden"
+              : "absolute top-0 left-0 w-full h-screen bg-inherit flex flex-col justify-center items-center"
+          }
+        >
+          <li className="py-6 text-4xl">
+            <Link onClick={handleClick} to="/auth">
+              Sign In
+            </Link>
+          </li>
+        </ul>
+      )}
     </div>
   );
 };
