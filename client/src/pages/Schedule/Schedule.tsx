@@ -103,16 +103,13 @@ const Schedule = () => {
   }, []);
 
   return (
-    <div className="pt-[100px] m-auto max-w-[800px]">
-      <button className="btn btn-secondary flex mx-auto" onClick={saveSchedule}>
-        Save
-      </button>
+    <div className="pt-[75px] m-auto max-w-[800px]">
       {daysOfWeek.map((day, index) => (
         <div
           className={
             index === currentDayIndex
-              ? "p-6 border-2 border-secondary m-2 my-5 rounded-lg"
-              : "p-6 border-2 m-2 my-5 rounded-lg"
+              ? "px-6 py-3 border-2 border-secondary m-2 my-5 rounded-lg"
+              : "px-6 py-3 border-2 m-2 my-5 rounded-lg"
           }
           key={index}
         >
@@ -181,6 +178,9 @@ const Schedule = () => {
           </div>
         </div>
       ))}
+      <button className="btn btn-secondary flex mx-auto" onClick={saveSchedule}>
+        Save
+      </button>
     </div>
   );
 };
