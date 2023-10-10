@@ -29,7 +29,7 @@ const SignIn: React.FC<SignInProps> = ({ toggleHasAccount }) => {
       } else {
         setCookies("access_token", response.data.token);
         window.localStorage.setItem("userID", response.data.userID);
-        navigate("/");
+        navigate("/profile");
       }
     } catch (error) {
       console.error(error);

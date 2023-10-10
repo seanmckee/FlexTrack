@@ -166,7 +166,7 @@ const Workouts = () => {
   );
 
   return (
-    <div className="pt-[75px] p-6 flex flex-col items-center max-w-[600px] mx-auto">
+    <div className="pt-[100px] p-6 flex flex-col items-center max-w-[600px] mx-auto">
       <button onClick={setFormVisible} className="btn btn-secondary ">
         {showForm ? "Close Form" : "New Workout"}
       </button>

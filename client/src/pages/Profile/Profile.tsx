@@ -99,7 +99,7 @@ const Profile = () => {
   }, [height]);
 
   return (
-    <div className="pt-[75px] p-6 flex flex-col max-w-[600px] mx-auto">
+    <div className="pt-[100px] p-6 flex flex-col max-w-[600px] mx-auto">
       <form onSubmit={onSubmit} className="form-control">
         <h1>View or Edit Information Here</h1>
         <div className="">

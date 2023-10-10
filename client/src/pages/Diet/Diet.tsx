@@ -115,7 +115,7 @@ const Diet = () => {
   }, [user]);
 
   return (
-    <div className="pt-[75px] p-6 flex flex-col items-center">
+    <div className="pt-[100px] p-6 flex flex-col items-center">
       {Number.isNaN(proteinPercentage) || Number.isNaN(caloriePercentage) ? (
         <h1 className="mb-5">Please fill out your profile information</h1>
       ) : (

@@ -128,9 +128,6 @@ const Schedule = () => {
               <div className="relative max-w-sm z-0">
                 <select
                   disabled={schedule[index]?.isRestDay}
-                  // value={schedule[index]?.workout?.name}
-                  // onChange={() => }
-
                   value={schedule[index]?.workout?.name}
                   onChange={(e) =>
                     handleSelectChange(index, workouts[e.target.selectedIndex])
@@ -169,6 +166,7 @@ const Schedule = () => {
                   <button
                     disabled={schedule[index].isRestDay}
                     className="btn btn-outline btn-secondary mx-2"
+                    onClick={() => console.log("info: ", schedule)}
                   >
                     View
                   </button>
